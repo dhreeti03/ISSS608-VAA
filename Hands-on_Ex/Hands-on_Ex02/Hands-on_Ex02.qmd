@@ -111,7 +111,7 @@ ggplot(data=exam_data,
 
 ### 2.4.3 A more refined graph
 
-```{r warning: false}
+```{r}
 
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -218,29 +218,3 @@ patchwork <- (p1 / p2) | p3
 patchwork & theme_economist()
 ```
 
-## 2.6 Extra plotting to practice 
-
-Gender Represenation By Class
-
-```{r}
-ggplot(exam_data, aes(x = CLASS, fill = GENDER)) +
-  geom_bar(position = "fill") +
-  labs(title = "Gender Representation by Class", y = "Proportion", x = "Class") +
-  theme_tufte() +
-  scale_fill_manual(values = c("#E69F00", "#56B4E9"))
-
-
-
-```
-
- Subject Score Distribution by Race
-
-
-```{r}
-ggplot(exam_data, aes(x = RACE, y = MATHS, fill = RACE)) +
-  geom_violin() +
-  labs(title = "Math Scores by Race", y = "Math Scores", x = "Race") +
-  theme_light() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-```
