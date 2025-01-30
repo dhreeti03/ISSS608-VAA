@@ -8,14 +8,19 @@ website:
       - text: "Hands-on Exercise"
         menu:
           - text: "Hands-on Exercise 1"
-            href: "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html"
+            href: Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html
           - text: "Hands-on Exercise 2"
-            href: "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html"
-        
+            href: Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html
+          - text: "Hands-on Exercise 3a"
+            href: Hands-on_Ex/Hands-on_Ex03a/Hands-on_Ex03a.html
+          - text: "Hands-on Exercise 3b"
+            href: Hands-on_Ex/Hands-on_Ex03b/Hands-on_Ex03b.html
+            
     right:
       - href: index.qmd
         text: Home
       - about.qmd
+       
 format:
   html:
     theme: morph
@@ -23,3 +28,4 @@ format:
     toc: true
 
 editor: visual
+
