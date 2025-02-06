@@ -1,0 +1,126 @@
+---
+title: "Hands On Exercise 4b"
+author: "Dhreeti"
+---
+
+1. Visualising Models
+
+2. Getting Started
+2.1 Install and load packages
+
+```{r}
+
+pacman::p_load(readxl, performance, parameters, see, ggstatsplot)
+
+```
+
+
+2.2  Importing Excel file: readxl methods
+
+```{r}
+
+car_resale <- read_xls("data/ToyotaCorolla.xls", 
+                       "data")
+car_resale
+
+```
+
+
+3. Multiple Regression Model using lm()
+
+The code chunk below is used to calibrate a multiple linear regression model by using lm() of Base Stats of R.
+
+```{r}
+model <- lm(Price ~ Age_08_04 + Mfg_Year + KM + 
+              Weight + Guarantee_Period, data = car_resale)
+model
+
+```
+
+4. Model Diagnostic: checking for multicolinearity:
+In the code chunk, check_collinearity() of performance package.
+
+```{r}
+check_collinearity(model)
+
+```
+
+```{r}
+
+check_c <- check_collinearity(model)
+plot(check_c)
+
+```
+
+5. Model Diagnostic: checking normality assumption
+
+
+
+```{r}
+model1 <- lm(Price ~ Age_08_04 + KM + 
+              Weight + Guarantee_Period, data = car_resale)
+
+
+```
+
+```{r}
+
+check_n <- check_normality(model1)
+```
+
+
+```{r}
+
+
+plot(check_n)
+
+```
+
+
+
+6. Model Diagnostic: Check model for homogeneity of variances
+
+
+```{r}
+
+check_h <- check_heteroscedasticity(model1)
+
+
+```
+
+```{r}
+
+plot(check_h)
+
+```
+
+
+
+7. Model Diagnostic: Complete check
+
+```{r}
+check_model(model1)
+
+
+```
+
+
+8.Visualising Regression Parameters: see methods
+
+In the code below, plot() of see package and parameters() of parameters package is used to visualise the parameters of a regression model.
+
+```{r}
+
+plot(parameters(model1))
+```
+
+9.Visualising Regression Parameters: ggcoefstats() methods
+
+In the code below, ggcoefstats() of ggstatsplot package to visualise the parameters of a regression model.
+
+```{r}
+ggcoefstats(model1, 
+            output = "plot")
+
+
+```
