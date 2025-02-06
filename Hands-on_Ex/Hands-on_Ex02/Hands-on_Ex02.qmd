@@ -217,4 +217,3 @@ p3 + inset_element(p2,
 patchwork <- (p1 / p2) | p3
 patchwork & theme_economist()
 ```
-
