@@ -3,5 +3,7 @@ title: "Take Home Exercise 1"
 author: "Dhreeti"
 date: "Feb 1st 2025"
 date-modified: last-modified"
+execute: 
+  warning: false
+  echo: true
 ---
-
