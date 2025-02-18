@@ -2,8 +2,427 @@
 title: "Take Home Exercise 1"
 author: "Dhreeti"
 date: "Feb 1st 2025"
-date-modified: last-modified"
+date-modified: "Feb 16th 2025"
 execute: 
   warning: false
-  echo: true
+  echo : true
+  interactive: true
 ---
+
+# 1. Getting Started
+
+We will first load the the libraries needed for this assignment
+
+```{r}
+pacman::p_load(tidyverse,readr,easystats,gtsummary, SmartEDA, ggstatsplot,janitor,ggplot2,plotly,treemapify,dplyr,caret)
+
+```
+
+# 2. Importing data
+
+We are provided with Japan heart attack dataset which has different factors affected whether or not heart attack occurs
+
+```{r}
+heart_data <- read_csv("data/japan_heart_attack_dataset.csv")
+
+```
+
+# 3.Data Exploration
+
+We will first start with data exploration to understand more about the data
+
+```{r}
+heart_data %>%
+  ExpData(type = 2)
+
+```
+
+This provides a brief understanding of the different variables, their type, missing value, distinct values and more
+
+## 3.1 Summary statistics
+
+```{r}
+summary(heart_data)
+```
+
+## 3.3 Select relevant columns
+
+```{r}
+# Select relevant variables
+heart_data <- heart_data %>%
+  select(Age, Gender, Region, Smoking_History, Diabetes_History,
+         Hypertension_History, Cholesterol_Level, Physical_Activity,
+         Diet_Quality, Alcohol_Consumption, Stress_Levels, BMI,
+         Heart_Rate, Systolic_BP, Diastolic_BP, Family_History,
+         Heart_Attack_Occurrence)
+
+```
+
+```{r}
+# Check the original distribution of Heart_Attack_Occurrence
+table(heart_data$Heart_Attack_Occurrence)
+
+```
+
+# 4.Univariate Analysis
+
+## 4.1 Age Distribution
+
+::: panel-tabset
+### plot
+
+```{r echo=FALSE}
+
+ggplot(heart_data, aes(x = Age)) +
+  geom_histogram(binwidth = 5, fill = "steelblue", color = "black") +
+  labs(title = "Age Distribution", x = "Age", y = "Count") +
+  theme_minimal()
+
+
+```
+
+### code
+
+```{r eval = FALSE}
+
+ggplot(heart_data, aes(x = Age)) +
+  geom_histogram(binwidth = 5, fill = "steelblue", color = "black") +
+  labs(title = "Age Distribution", x = "Age", y = "Count") +
+  theme_minimal()
+```
+:::
+
+## 4.2 Heart Attack Occurrence
+
+::: panel-tabset
+### plot
+
+```{r}
+
+ggplot(heart_data, aes(x = Heart_Attack_Occurrence, fill = Heart_Attack_Occurrence)) +
+  geom_bar() +
+  labs(title = "Heart Attack Occurrence Count") +
+  theme_minimal()
+
+```
+
+### code
+
+```{r  eval = FALSE}
+
+ggplot(heart_data, aes(x = Heart_Attack_Occurrence, fill = Heart_Attack_Occurrence)) +
+  geom_bar() +
+  labs(title = "Heart Attack Occurrence Count") +
+  theme_minimal()
+
+As we can see that data is extremely unbalanced, for further EDA it would be better if we use a case my case basis to evaluate
+
+```
+:::
+
+# 5. Stratified Summary Statistics
+
+Since 90% of cases are "No" and 10% are "Yes", we should analyze them separately for better insights.
+
+```{r}
+heart_data %>%
+  group_by(Heart_Attack_Occurrence) %>%
+  summarise(
+    avg_cholesterol = mean(Cholesterol_Level, na.rm = TRUE),
+    median_cholesterol = median(Cholesterol_Level, na.rm = TRUE),
+    avg_age = mean(Age, na.rm = TRUE),
+    median_age = median(Age, na.rm = TRUE)
+  )
+
+```
+
+From the data, we can observe:
+
+The average cholesterol is quite similar between those who had a heart attack (199.79) and those who did not (199.91). The median cholesterol is also close between both groups, with the "No" group at 199.74 and the "Yes" group at 200.08. The average age is almost identical, with a slight increase in the group who experienced a heart attack (48.78) compared to the group who did not (48.46). The median age is similarly close, with the "No" group at 48 and the "Yes" group at 49.
+
+## 5.1 Stratifed Correlation
+
+```{r}
+cor_yes <- cor(heart_data[heart_data$Heart_Attack_Occurrence == "Yes", 
+                          c("Cholesterol_Level", "Age", "BMI", "Stress_Levels", "Systolic_BP", "Diastolic_BP", "Heart_Rate")], 
+               use = "complete.obs")
+
+cor_no <- cor(heart_data[heart_data$Heart_Attack_Occurrence == "No", 
+                         c("Cholesterol_Level", "Age", "BMI", "Stress_Levels", "Systolic_BP", "Diastolic_BP", "Heart_Rate")], 
+              use = "complete.obs")
+
+print("Correlation for Yes cases:")
+print(cor_yes)
+
+print("Correlation for No cases:")
+print(cor_no)
+
+```
+
+Key takeaways: Cholesterol Level does not seem strongly correlated with any other feature in both groups.
+
+The stress levels and age seem to have a slightly stronger relationship in the "Yes" group compared to the "No" group.
+
+BMI, Blood Pressure (Systolic/Diastolic), and Heart Rate do not show strong correlations with any features, suggesting no immediate linear relationship.
+
+# 6.Bivariate Analysis
+
+## 6.1 Heart attack by age group
+
+```{r}
+heart_data <- heart_data %>%
+  mutate(Age_Group = cut(Age, breaks = c(0, 30, 50, 70, 100), labels = c("<30", "30-50", "50-70", "70+")))
+
+ggplot(heart_data, aes(x = Age_Group, fill = Heart_Attack_Occurrence)) +
+  geom_bar(position = "fill") +  # Proportion-based visualization
+  labs(title = "Proportion of Heart Attacks by Age Group") +
+  theme_minimal()
+
+```
+
+## 6.3 Cholesterol Level vs. Heart Attack
+
+```{r}
+
+ggplot(heart_data, aes(x = Heart_Attack_Occurrence, y = Cholesterol_Level, fill = Heart_Attack_Occurrence)) +
+  geom_boxplot() +
+  labs(title = "Cholesterol Levels by Heart Attack Occurrence") +
+  theme_minimal()
+
+
+```
+
+# 7. Multivariate Analysis (Relationships Between Multiple Variables)
+
+## 7.1 Heart Attack by Smoking and Alcohol Consumption
+
+```{r}
+ggplot(heart_data, aes(x = Smoking_History, fill = Heart_Attack_Occurrence)) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~ Alcohol_Consumption) +
+  labs(title = "Heart Attack Occurrence by Smoking & Alcohol Consumption") +
+  theme_minimal()
+
+
+
+```
+
+Insights
+
+If you look at the ratio or proportion of Yes to total within each group, you may find that certain combinations (e.g., "High" alcohol consumption + "Moderate/Yes" smoking) might have a higher relative incidence of heart attack.
+
+Even though absolute counts of "No" dominate, comparing proportions can reveal risk patterns. For instance, if in "High" alcohol + "Moderate" smoking the share of Yes is noticeably larger than in "Low" alcohol + "No" smoking, that suggests a higher relative risk.
+
+# 8.Statistical Visualizations Using ggstatsplot
+
+#8.1 Heart Attack vs. Stress Levels
+
+```{r}
+library(ggstatsplot)
+
+ggbetweenstats(data = heart_data, 
+               x = Heart_Attack_Occurrence, 
+               y = Stress_Levels, 
+               type = "p")
+```
+
+Insights
+
+Statistical Significance vs. Practical Significance: Statistical Significance: The p-value (0.04) indicates a statistically significant difference in mean stress levels between the two groups at the 5% alpha level. Practical/Clinical Significance: The effect size (gHedges = 0.04) is very small, suggesting that although the difference is real (in a statistical sense), it may not be very large in magnitude. Distribution Overlap: If the violins largely overlap, it means many individuals in both groups share similar stress levels, so stress alone may not be a strong discriminator.
+
+# 9.Violin Plot: BMI Distribution by Heart Attack Occurrence
+
+```{r}
+
+ggplot(heart_data, aes(x = Heart_Attack_Occurrence, y = BMI, fill = Heart_Attack_Occurrence)) +
+  geom_violin(trim = FALSE) +
+  geom_jitter(width = 0.2, alpha = 0.3) +  # Adds individual points for clarity
+  labs(title = "BMI Distribution by Heart Attack Occurrence") +
+  theme_minimal()
+
+
+
+```
+
+Slightly Higher BMI for "Yes": People who had a heart attack may have a higher average BMI, though the difference may be modest. Overlap: Because the distributions overlap, BMI alone does not perfectly distinguish between heart attack occurrence. It may, however, be one contributing factor among others.
+
+# 10.Heatmap: Relationship Between Blood Pressure & Heart Rate
+
+Using a heatmap, we visualize trends between systolic blood pressure, diastolic blood pressure, and heart rate.
+
+```{r}
+
+library(ggplot2)
+library(reshape2)  # For reshaping data
+
+# Select relevant numeric variables
+heatmap_data <- heart_data %>% 
+  select(Systolic_BP, Diastolic_BP, Heart_Rate, BMI, Cholesterol_Level)
+
+# Compute correlation matrix
+cor_matrix <- cor(heatmap_data, use = "complete.obs")
+
+# Convert to long format
+melted_cor <- melt(cor_matrix)
+
+# Heatmap
+ggplot(melted_cor, aes(Var1, Var2, fill = value)) +
+  geom_tile() +
+  geom_text(aes(label = round(value, 2)), color = "white") +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white", midpoint = 0) +
+  labs(title = "Correlation Heatmap") +
+  theme_minimal()
+
+
+
+```
+
+Insights :
+
+None of these variables strongly correlates with another (at least linearly). This can mean: Each risk factor might act somewhat independently. May need to consider non-linear relationships or interactions rather than simple linear correlations.
+
+## 11. Principal Component Analysis (PCA)
+
+See if numeric variables (e.g., Age, Cholesterol_Level, Stress_Levels, BMI, Heart_Rate, Systolic_BP, Diastolic_BP) separate "Yes" vs. "No" cases in a lower-dimensional space.
+
+```{r}
+# Example PCA code
+numeric_vars <- heart_data %>%
+  select(Age, Cholesterol_Level, Stress_Levels, BMI, Heart_Rate, Systolic_BP, Diastolic_BP) %>%
+  na.omit()
+
+pca_res <- prcomp(numeric_vars, scale. = TRUE)
+
+# Visualize PCA
+library(ggplot2)
+library(dplyr)
+
+pca_data <- as.data.frame(pca_res$x) %>%
+  mutate(Heart_Attack_Occurrence = heart_data$Heart_Attack_Occurrence[!is.na(heart_data$Age)])  # align indices
+
+ggplot(pca_data, aes(x = PC1, y = PC2, color = Heart_Attack_Occurrence)) +
+  geom_point(alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "PCA of Numeric Variables",
+       x = "PC1",
+       y = "PC2")
+
+```
+
+Insight: If "Yes" and "No" points form distinct clusters, certain numeric factors may drive heart-attack risk. If they overlap heavily, numeric variables alone may not cleanly separate outcome
+
+
+# 12. Random Forest
+
+```{r}
+# Load necessary libraries
+library(caret)
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Stratified split: 80% Training, 20% Testing
+trainIndex <- createDataPartition(heart_data$Heart_Attack_Occurrence, p = 0.8, list = FALSE)
+
+# Creating Training and Testing Sets
+train_data <- heart_data[trainIndex, ]
+test_data <- heart_data[-trainIndex, ]
+
+# Check class distribution in train and test sets
+table(train_data$Heart_Attack_Occurrence)
+table(test_data$Heart_Attack_Occurrence)
+
+```
+
+``{r}
+# Load necessary libraries
+library(caret)
+
+# Define Cross-validation with stratified folds
+control <- trainControl(method = "cv", 
+                        number = 5, 
+                        classProbs = TRUE, 
+                        summaryFunction = twoClassSummary,
+                        savePredictions = "final")
+
+# Train a Random Forest model with stratified cross-validation
+rf_model <- train(Heart_Attack_Occurrence ~ BMI + Systolic_BP + Age + Heart_Rate + Cholesterol_Level + Stress_Levels,
+                  data = train_data,
+                  method = "rf",
+                  trControl = control,
+                  metric = "ROC", # Use ROC-AUC for imbalanced data
+                  importance = TRUE)
+
+# Model Summary
+print(rf_model)
+
+# Variable Importance
+#varImpPlot(rf_model$finalModel)
+
+``
+
+`{r}
+
+train_data$Cholesterol_Level_Cat <- cut(train_data$Cholesterol_Level, breaks=3, labels=c("Low", "Medium", "High"))
+
+ggplot(train_data, aes(x = BMI, y = Heart_Attack_Occurrence, color = Cholesterol_Level_Cat, group = Cholesterol_Level_Cat)) +
+  stat_summary(fun = mean, geom = "line", size = 1) +
+  labs(title = "Interaction between BMI & Cholesterol on Heart Attack Risk",
+       x = "BMI",
+       y = "Mean Heart Attack Risk",
+       color = "Cholesterol Level") +
+  theme_minimal()
+  
+  Results :
+  
+  Coefficients:
+                              Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                 -0.0523207  0.1132713  -0.462 0.644149    
+Age                          0.0014766  0.0004992   2.958 0.003095 ** 
+BMI                         -0.0031457  0.0018036  -1.744 0.081140 .  
+Diastolic_BP                 0.0009575  0.0008876   1.079 0.280740    
+Heart_Rate                   0.0011789  0.0008881   1.327 0.184387    
+Stress_Levels               -0.0155511  0.0044518  -3.493 0.000477 ***
+Smoking_HistoryYes           0.0336846  0.0193652   1.739 0.081958 .  
+Hypertension_HistoryYes      0.0214626  0.0205319   1.045 0.295871    
+Alcohol_ConsumptionModerate -0.0699551  0.0202636  -3.452 0.000556 ***
+Alcohol_ConsumptionHigh     -0.0105962  0.0243683  -0.435 0.663681    
+Diet_QualityAverage          0.0414591  0.0245110   1.691 0.090751 .  
+Diet_QualityGood             0.0662170  0.0244418   2.709 0.006745 ** 
+Physical_ActivityModerate    0.0576200  0.0215000   2.680 0.007362 ** 
+Physical_ActivityHigh       -0.0004257  0.0229865  -0.019 0.985226    
+Diabetes_HistoryYes          0.0684589  0.0218992   3.126 0.001771 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 70403  on 26984  degrees of freedom
+Residual deviance: 70331  on 26970  degrees of freedom
+  (3015 observations deleted due to missingness)
+AIC: 70361
+
+Number of Fisher Scoring iterations: 5
+```
+
+
+# 13. Conclusion and Summary
+
+1. Feature Importance (Random Forest Model)
+
+Cholesterol Level and BMI are among the top predictors of heart attack risk.
+Systolic BP and Heart Rate also play a role but seem slightly less impactful.
+Age has the least importance in this specific model.
+
+2⃣.  Interaction Between BMI & Cholesterol on Heart Attack Risk
+
+Higher cholesterol levels (blue line) show a consistently higher heart attack risk, but it slightly decreases as BMI increases.
+Lower cholesterol (red line) has a steeper decline in risk with increasing BMI.
+Medium cholesterol (green line) has a sharp drop at a certain BMI threshold, suggesting a possible nonlinear effect.
+Overall, cholesterol modifies the relationship between BMI and heart attack risk, showing an interaction effect.
+3. Alternative Visualizations for Variable Comparisons
+
+Boxplots & Violin Plots: Could be used to check how heart attack risk varies across BMI and cholesterol levels.
+Scatter Plots with Color/Size Encoding: Helped check relationships between continuous variables like BMI, Cholesterol, and Heart Rate.
+3D Scatter Plot: Would be useful to further explore trends across three continuous features.
+
