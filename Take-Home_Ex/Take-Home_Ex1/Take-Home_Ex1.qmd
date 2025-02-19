@@ -1,13 +1,20 @@
 ---
 title: "Take Home Exercise 1"
-author: "Dhreeti"
-date: "Feb 1st 2025"
-date-modified: "Feb 16th 2025"
-execute: 
+author: "Dhreeti Shah"
+date: "`r Sys.Date()`"
+title-block-banner: true
+format:
+  html:
+    theme: cosmo          # Switch to a Bootswatch theme like cosmo, 
+    css: "styles.css"     # Reference a custom CSS file (optional)
+    code-fold: true       # Collapsible code blocks
+execute:
+  echo: true
   warning: false
-  echo : true
-  interactive: true
+  message: false
 ---
+
+------------------------------------------------------------------------
 
 # 1. Getting Started
 
@@ -311,8 +318,9 @@ ggplot(pca_data, aes(x = PC1, y = PC2, color = Heart_Attack_Occurrence)) +
 
 Insight: If "Yes" and "No" points form distinct clusters, certain numeric factors may drive heart-attack risk. If they overlap heavily, numeric variables alone may not cleanly separate outcome
 
-
 # 12. Random Forest
+
+## 12.1 Splitting the data to balance it out
 
 ```{r}
 # Load necessary libraries
@@ -334,95 +342,66 @@ table(test_data$Heart_Attack_Occurrence)
 
 ```
 
-``{r}
-# Load necessary libraries
-library(caret)
+## 12.2 Training a random forest
 
-# Define Cross-validation with stratified folds
-control <- trainControl(method = "cv", 
-                        number = 5, 
-                        classProbs = TRUE, 
-                        summaryFunction = twoClassSummary,
-                        savePredictions = "final")
+\`\`{r} \# Load necessary libraries library(caret)
 
-# Train a Random Forest model with stratified cross-validation
-rf_model <- train(Heart_Attack_Occurrence ~ BMI + Systolic_BP + Age + Heart_Rate + Cholesterol_Level + Stress_Levels,
-                  data = train_data,
-                  method = "rf",
-                  trControl = control,
-                  metric = "ROC", # Use ROC-AUC for imbalanced data
-                  importance = TRUE)
+## Define Cross-validation with stratified folds
 
-# Model Summary
+control \<- trainControl(method = "cv", number = 5, classProbs = TRUE, summaryFunction = twoClassSummary, savePredictions = "final")
+
+### Train a Random Forest model with stratified cross-validation
+
+rf_model \<- train(Heart_Attack_Occurrence \~ BMI + Systolic_BP + Age + Heart_Rate + Cholesterol_Level + Stress_Levels, data = train_data, method = "rf", trControl = control, metric = "ROC", \# Use ROC-AUC for imbalanced data importance = TRUE)
+
+### Model Summary
+
 print(rf_model)
 
-# Variable Importance
-#varImpPlot(rf_model$finalModel)
+### Variable Importance
 
-``
+#varImpPlot(rf_model\$finalModel)
 
-`{r}
+##12.3 Plotting the outcome of random forest
+
+\`{r}
 
 train_data$Cholesterol_Level_Cat <- cut(train_data$Cholesterol_Level, breaks=3, labels=c("Low", "Medium", "High"))
 
-ggplot(train_data, aes(x = BMI, y = Heart_Attack_Occurrence, color = Cholesterol_Level_Cat, group = Cholesterol_Level_Cat)) +
-  stat_summary(fun = mean, geom = "line", size = 1) +
-  labs(title = "Interaction between BMI & Cholesterol on Heart Attack Risk",
-       x = "BMI",
-       y = "Mean Heart Attack Risk",
-       color = "Cholesterol Level") +
-  theme_minimal()
-  
-  Results :
-  
-  Coefficients:
-                              Estimate Std. Error z value Pr(>|z|)    
-(Intercept)                 -0.0523207  0.1132713  -0.462 0.644149    
-Age                          0.0014766  0.0004992   2.958 0.003095 ** 
-BMI                         -0.0031457  0.0018036  -1.744 0.081140 .  
-Diastolic_BP                 0.0009575  0.0008876   1.079 0.280740    
-Heart_Rate                   0.0011789  0.0008881   1.327 0.184387    
-Stress_Levels               -0.0155511  0.0044518  -3.493 0.000477 ***
-Smoking_HistoryYes           0.0336846  0.0193652   1.739 0.081958 .  
-Hypertension_HistoryYes      0.0214626  0.0205319   1.045 0.295871    
-Alcohol_ConsumptionModerate -0.0699551  0.0202636  -3.452 0.000556 ***
-Alcohol_ConsumptionHigh     -0.0105962  0.0243683  -0.435 0.663681    
-Diet_QualityAverage          0.0414591  0.0245110   1.691 0.090751 .  
-Diet_QualityGood             0.0662170  0.0244418   2.709 0.006745 ** 
-Physical_ActivityModerate    0.0576200  0.0215000   2.680 0.007362 ** 
-Physical_ActivityHigh       -0.0004257  0.0229865  -0.019 0.985226    
-Diabetes_HistoryYes          0.0684589  0.0218992   3.126 0.001771 ** 
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+ggplot(train_data, aes(x = BMI, y = Heart_Attack_Occurrence, color = Cholesterol_Level_Cat, group = Cholesterol_Level_Cat)) + stat_summary(fun = mean, geom = "line", size = 1) + labs(title = "Interaction between BMI & Cholesterol on Heart Attack Risk", x = "BMI", y = "Mean Heart Attack Risk", color = "Cholesterol Level") + theme_minimal()
+
+Results :
+
+Coefficients: Estimate Std. Error z value Pr(\>\|z\|)\
+(Intercept) -0.0523207 0.1132713 -0.462 0.644149\
+Age 0.0014766 0.0004992 2.958 0.003095 \*\* BMI -0.0031457 0.0018036 -1.744 0.081140 .\
+Diastolic_BP 0.0009575 0.0008876 1.079 0.280740\
+Heart_Rate 0.0011789 0.0008881 1.327 0.184387\
+Stress_Levels -0.0155511 0.0044518 -3.493 0.000477 ***Smoking_HistoryYes 0.0336846 0.0193652 1.739 0.081958 .\
+Hypertension_HistoryYes 0.0214626 0.0205319 1.045 0.295871\
+Alcohol_ConsumptionModerate -0.0699551 0.0202636 -3.452 0.000556*** Alcohol_ConsumptionHigh -0.0105962 0.0243683 -0.435 0.663681\
+Diet_QualityAverage 0.0414591 0.0245110 1.691 0.090751 .\
+Diet_QualityGood 0.0662170 0.0244418 2.709 0.006745 \*\* Physical_ActivityModerate 0.0576200 0.0215000 2.680 0.007362 \*\* Physical_ActivityHigh -0.0004257 0.0229865 -0.019 0.985226\
+Diabetes_HistoryYes 0.0684589 0.0218992 3.126 0.001771 \*\* --- Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 70403  on 26984  degrees of freedom
-Residual deviance: 70331  on 26970  degrees of freedom
-  (3015 observations deleted due to missingness)
-AIC: 70361
-
-Number of Fisher Scoring iterations: 5
+```         
+Null deviance: 70403  on 26984  degrees of freedom
 ```
 
+Residual deviance: 70331 on 26970 degrees of freedom (3015 observations deleted due to missingness) AIC: 70361
+
+Number of Fisher Scoring iterations: 5 \`\`\`
 
 # 13. Conclusion and Summary
 
-1. Feature Importance (Random Forest Model)
+## 13.1 Feature Importance (Random Forest Model)
 
-Cholesterol Level and BMI are among the top predictors of heart attack risk.
-Systolic BP and Heart Rate also play a role but seem slightly less impactful.
-Age has the least importance in this specific model.
+Cholesterol Level and BMI are among the top predictors of heart attack risk. Systolic BP and Heart Rate also play a role but seem slightly less impactful. Age has the least importance in this specific model.
 
-2⃣.  Interaction Between BMI & Cholesterol on Heart Attack Risk
+## 13.2  Interaction Between BMI & Cholesterol on Heart Attack Risk
 
-Higher cholesterol levels (blue line) show a consistently higher heart attack risk, but it slightly decreases as BMI increases.
-Lower cholesterol (red line) has a steeper decline in risk with increasing BMI.
-Medium cholesterol (green line) has a sharp drop at a certain BMI threshold, suggesting a possible nonlinear effect.
-Overall, cholesterol modifies the relationship between BMI and heart attack risk, showing an interaction effect.
-3. Alternative Visualizations for Variable Comparisons
+Higher cholesterol levels (blue line) show a consistently higher heart attack risk, but it slightly decreases as BMI increases. Lower cholesterol (red line) has a steeper decline in risk with increasing BMI. Medium cholesterol (green line) has a sharp drop at a certain BMI threshold, suggesting a possible nonlinear effect. Overall, cholesterol modifies the relationship between BMI and heart attack risk, showing an interaction effect. 3. Alternative Visualizations for Variable Comparisons
 
-Boxplots & Violin Plots: Could be used to check how heart attack risk varies across BMI and cholesterol levels.
-Scatter Plots with Color/Size Encoding: Helped check relationships between continuous variables like BMI, Cholesterol, and Heart Rate.
-3D Scatter Plot: Would be useful to further explore trends across three continuous features.
-
+Boxplots & Violin Plots: Could be used to check how heart attack risk varies across BMI and cholesterol levels. Scatter Plots with Color/Size Encoding: Helped check relationships between continuous variables like BMI, Cholesterol, and Heart Rate. 3D Scatter Plot: Would be useful to further explore trends across three continuous features.

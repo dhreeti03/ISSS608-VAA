@@ -6,7 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Dhreeti">
+<meta name="author" content="Dhreeti Shah">
+<meta name="dcterms.date" content="2025-02-19">
 
 <title>ISSS608-VAA - Take Home Exercise 1</title>
 <style>
@@ -94,8 +95,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -218,7 +222,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Take Home Exercise 1</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Dhreeti Shah </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 19, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -257,69 +289,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#principal-component-analysis-pca" id="toc-principal-component-analysis-pca" class="nav-link" data-scroll-target="#principal-component-analysis-pca">11. Principal Component Analysis (PCA)</a></li>
   </ul></li>
-  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest">12. Random Forest</a></li>
-  <li><a href="#conclusion-and-summary" id="toc-conclusion-and-summary" class="nav-link" data-scroll-target="#conclusion-and-summary">13. Conclusion and Summary</a></li>
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest">12. Random Forest</a>
+  <ul class="collapse">
+  <li><a href="#splitting-the-data-to-balance-it-out" id="toc-splitting-the-data-to-balance-it-out" class="nav-link" data-scroll-target="#splitting-the-data-to-balance-it-out">12.1 Splitting the data to balance it out</a></li>
+  <li><a href="#training-a-random-forest" id="toc-training-a-random-forest" class="nav-link" data-scroll-target="#training-a-random-forest">12.2 Training a random forest</a></li>
+  <li><a href="#define-cross-validation-with-stratified-folds" id="toc-define-cross-validation-with-stratified-folds" class="nav-link" data-scroll-target="#define-cross-validation-with-stratified-folds">Define Cross-validation with stratified folds</a>
+  <ul class="collapse">
+  <li><a href="#train-a-random-forest-model-with-stratified-cross-validation" id="toc-train-a-random-forest-model-with-stratified-cross-validation" class="nav-link" data-scroll-target="#train-a-random-forest-model-with-stratified-cross-validation">Train a Random Forest model with stratified cross-validation</a></li>
+  <li><a href="#model-summary" id="toc-model-summary" class="nav-link" data-scroll-target="#model-summary">Model Summary</a></li>
+  <li><a href="#variable-importance" id="toc-variable-importance" class="nav-link" data-scroll-target="#variable-importance">Variable Importance</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#conclusion-and-summary" id="toc-conclusion-and-summary" class="nav-link" data-scroll-target="#conclusion-and-summary">13. Conclusion and Summary</a>
+  <ul class="collapse">
+  <li><a href="#feature-importance-random-forest-model" id="toc-feature-importance-random-forest-model" class="nav-link" data-scroll-target="#feature-importance-random-forest-model">13.1 Feature Importance (Random Forest Model)</a></li>
+  <li><a href="#interaction-between-bmi-cholesterol-on-heart-attack-risk" id="toc-interaction-between-bmi-cholesterol-on-heart-attack-risk" class="nav-link" data-scroll-target="#interaction-between-bmi-cholesterol-on-heart-attack-risk">13.2 Interaction Between BMI &amp; Cholesterol on Heart Attack Risk</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Take Home Exercise 1</h1>
-</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Dhreeti </p>
-          </div>
-  </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
-  
-    <div>
-    <div class="quarto-title-meta-heading">Modified</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date-modified">Invalid Date</p>
-    </div>
-  </div>
-    
-  </div>
-  
-
-</header>
-
+<hr>
 <section id="getting-started" class="level1">
 <h1>1. Getting Started</h1>
 <p>We will first load the the libraries needed for this assignment</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,readr,easystats,gtsummary, SmartEDA, ggstatsplot,janitor,ggplot2,plotly,treemapify,dplyr,caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="importing-data" class="level1">
 <h1>2. Importing data</h1>
 <p>We are provided with Japan heart attack dataset which has different factors affected whether or not heart attack occurs</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>heart_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/japan_heart_attack_dataset.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="data-exploration" class="level1">
 <h1>3.Data Exploration</h1>
 <p>We will first start with data exploration to understand more about the data</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>heart_data <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ExpData</span>(<span class="at">type =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Index           Variable_Name Variable_Type Sample_n Missing_Count
 1      1                     Age       numeric    30000             0
@@ -393,7 +417,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="summary-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="summary-statistics">3.1 Summary statistics</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(heart_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Age           Gender             Region          Smoking_History   
  Min.   :18.00   Length:30000       Length:30000       Length:30000      
@@ -464,6 +491,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="select-relevant-columns" class="level2">
 <h2 class="anchored" data-anchor-id="select-relevant-columns">3.3 Select relevant columns</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant variables</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>heart_data <span class="ot">&lt;-</span> heart_data <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Age, Gender, Region, Smoking_History, Diabetes_History,</span>
@@ -471,10 +500,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>         Diet_Quality, Alcohol_Consumption, Stress_Levels, BMI,</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>         Heart_Rate, Systolic_BP, Diastolic_BP, Family_History,</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>         Heart_Attack_Occurrence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the original distribution of Heart_Attack_Occurrence</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(heart_data<span class="sc">$</span>Heart_Attack_Occurrence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
    No   Yes 
@@ -499,10 +532,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(heart_data, <span class="fu">aes</span>(<span class="at">x =</span> Age)) <span class="sc">+</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Age Distribution"</span>, <span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </div>
 </div>
@@ -515,10 +551,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(heart_data, <span class="fu">aes</span>(<span class="at">x =</span> Heart_Attack_Occurrence, <span class="at">fill =</span> Heart_Attack_Occurrence)) <span class="sc">+</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Heart Attack Occurrence Count"</span>) <span class="sc">+</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Take-Home_Ex1_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -526,12 +565,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(heart_data, <span class="fu">aes</span>(<span class="at">x =</span> Heart_Attack_Occurrence, <span class="at">fill =</span> Heart_Attack_Occurrence)) <span class="sc">+</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Heart Attack Occurrence Count"</span>) <span class="sc">+</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>As we can see that data is extremely unbalanced, <span class="cf">for</span> further EDA it would be better <span class="cf">if</span> we use a case my case basis to evaluate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </div>
 </div>
@@ -542,6 +584,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>5. Stratified Summary Statistics</h1>
 <p>Since 90% of cases are “No” and 10% are “Yes”, we should analyze them separately for better insights.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>heart_data <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Heart_Attack_Occurrence) <span class="sc">%&gt;%</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
@@ -550,6 +594,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_age =</span> <span class="fu">mean</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_age =</span> <span class="fu">median</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   Heart_Attack_Occurrence avg_cholesterol median_cholesterol avg_age median_age
@@ -563,6 +608,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="stratifed-correlation" class="level2">
 <h2 class="anchored" data-anchor-id="stratifed-correlation">5.1 Stratifed Correlation</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cor_yes <span class="ot">&lt;-</span> <span class="fu">cor</span>(heart_data[heart_data<span class="sc">$</span>Heart_Attack_Occurrence <span class="sc">==</span> <span class="st">"Yes"</span>, </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">c</span>(<span class="st">"Cholesterol_Level"</span>, <span class="st">"Age"</span>, <span class="st">"BMI"</span>, <span class="st">"Stress_Levels"</span>, <span class="st">"Systolic_BP"</span>, <span class="st">"Diastolic_BP"</span>, <span class="st">"Heart_Rate"</span>)], </span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
@@ -572,10 +619,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Correlation for Yes cases:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Correlation for Yes cases:"</code></pre>
 </div>
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cor_yes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  Cholesterol_Level          Age           BMI Stress_Levels
 Cholesterol_Level       1.000000000  0.024893055  0.0013634639  0.0011737216
@@ -594,11 +645,17 @@ Systolic_BP        1.000000000  0.022033777  0.005838594
 Diastolic_BP       0.022033777  1.000000000 -0.023602091
 Heart_Rate         0.005838594 -0.023602091  1.000000000</code></pre>
 </div>
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Correlation for No cases:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Correlation for No cases:"</code></pre>
 </div>
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cor_no)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  Cholesterol_Level          Age          BMI Stress_Levels
 Cholesterol_Level      1.0000000000 -0.002930681  0.001274954 -0.0007789171
@@ -628,6 +685,8 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 <section id="heart-attack-by-age-group" class="level2">
 <h2 class="anchored" data-anchor-id="heart-attack-by-age-group">6.1 Heart attack by age group</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>heart_data <span class="ot">&lt;-</span> heart_data <span class="sc">%&gt;%</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Age_Group =</span> <span class="fu">cut</span>(Age, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">70</span>, <span class="dv">100</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"&lt;30"</span>, <span class="st">"30-50"</span>, <span class="st">"50-70"</span>, <span class="st">"70+"</span>)))</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -635,6 +694,7 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span>  <span class="co"># Proportion-based visualization</span></span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Proportion of Heart Attacks by Age Group"</span>) <span class="sc">+</span></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Take-Home_Ex1_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -643,10 +703,13 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 <section id="cholesterol-level-vs.-heart-attack" class="level2">
 <h2 class="anchored" data-anchor-id="cholesterol-level-vs.-heart-attack">6.3 Cholesterol Level vs.&nbsp;Heart Attack</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(heart_data, <span class="fu">aes</span>(<span class="at">x =</span> Heart_Attack_Occurrence, <span class="at">y =</span> Cholesterol_Level, <span class="at">fill =</span> Heart_Attack_Occurrence)) <span class="sc">+</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cholesterol Levels by Heart Attack Occurrence"</span>) <span class="sc">+</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Take-Home_Ex1_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -658,11 +721,14 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 <section id="heart-attack-by-smoking-and-alcohol-consumption" class="level2">
 <h2 class="anchored" data-anchor-id="heart-attack-by-smoking-and-alcohol-consumption">7.1 Heart Attack by Smoking and Alcohol Consumption</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(heart_data, <span class="fu">aes</span>(<span class="at">x =</span> Smoking_History, <span class="at">fill =</span> Heart_Attack_Occurrence)) <span class="sc">+</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Alcohol_Consumption) <span class="sc">+</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Heart Attack Occurrence by Smoking &amp; Alcohol Consumption"</span>) <span class="sc">+</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Take-Home_Ex1_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -676,12 +742,15 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 <h1>8.Statistical Visualizations Using ggstatsplot</h1>
 <p>#8.1 Heart Attack vs.&nbsp;Stress Levels</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggstatsplot)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbetweenstats</span>(<span class="at">data =</span> heart_data, </span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">x =</span> Heart_Attack_Occurrence, </span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> Stress_Levels, </span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">"p"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Take-Home_Ex1_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -692,11 +761,14 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 <section id="violin-plot-bmi-distribution-by-heart-attack-occurrence" class="level1">
 <h1>9.Violin Plot: BMI Distribution by Heart Attack Occurrence</h1>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(heart_data, <span class="fu">aes</span>(<span class="at">x =</span> Heart_Attack_Occurrence, <span class="at">y =</span> BMI, <span class="at">fill =</span> Heart_Attack_Occurrence)) <span class="sc">+</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">trim =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># Adds individual points for clarity</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"BMI Distribution by Heart Attack Occurrence"</span>) <span class="sc">+</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Take-Home_Ex1_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -707,6 +779,8 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 <h1>10.Heatmap: Relationship Between Blood Pressure &amp; Heart Rate</h1>
 <p>Using a heatmap, we visualize trends between systolic blood pressure, diastolic blood pressure, and heart rate.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)  <span class="co"># For reshaping data</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -727,6 +801,7 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 <span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">high =</span> <span class="st">"red"</span>, <span class="at">mid =</span> <span class="st">"white"</span>, <span class="at">midpoint =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
 <span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Correlation Heatmap"</span>) <span class="sc">+</span></span>
 <span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Take-Home_Ex1_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -737,6 +812,8 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 <h2 class="anchored" data-anchor-id="principal-component-analysis-pca">11. Principal Component Analysis (PCA)</h2>
 <p>See if numeric variables (e.g., Age, Cholesterol_Level, Stress_Levels, BMI, Heart_Rate, Systolic_BP, Diastolic_BP) separate “Yes” vs.&nbsp;“No” cases in a lower-dimensional space.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example PCA code</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>numeric_vars <span class="ot">&lt;-</span> heart_data <span class="sc">%&gt;%</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Age, Cholesterol_Level, Stress_Levels, BMI, Heart_Rate, Systolic_BP, Diastolic_BP) <span class="sc">%&gt;%</span></span>
@@ -757,6 +834,7 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 <span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"PCA of Numeric Variables"</span>,</span>
 <span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"PC1"</span>,</span>
 <span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"PC2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Take-Home_Ex1_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -766,7 +844,11 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 </section>
 <section id="random-forest" class="level1">
 <h1>12. Random Forest</h1>
+<section id="splitting-the-data-to-balance-it-out" class="level2">
+<h2 class="anchored" data-anchor-id="splitting-the-data-to-balance-it-out">12.1 Splitting the data to balance it out</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -782,81 +864,77 @@ Heart_Rate         0.001950470 -0.0083959588  1.000000000</code></pre>
 <span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Check class distribution in train and test sets</span></span>
 <span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(train_data<span class="sc">$</span>Heart_Attack_Occurrence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
    No   Yes 
 21629  2372 </code></pre>
 </div>
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(test_data<span class="sc">$</span>Heart_Attack_Occurrence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   No  Yes 
 5407  592 </code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define Cross-validation with stratified folds</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, </span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">number =</span> <span class="dv">5</span>, </span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">classProbs =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">summaryFunction =</span> twoClassSummary,</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">savePredictions =</span> <span class="st">"final"</span>)</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Train a Random Forest model with stratified cross-validation</span></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>rf_model <span class="ot">&lt;-</span> <span class="fu">train</span>(Heart_Attack_Occurrence <span class="sc">~</span> BMI <span class="sc">+</span> Systolic_BP <span class="sc">+</span> Age <span class="sc">+</span> Heart_Rate <span class="sc">+</span> Cholesterol_Level <span class="sc">+</span> Stress_Levels,</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> train_data,</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"rf"</span>,</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">trControl =</span> control,</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">metric =</span> <span class="st">"ROC"</span>, <span class="co"># Use ROC-AUC for imbalanced data</span></span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">importance =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Summary</span></span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rf_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Random Forest 
-
-24001 samples
-    6 predictor
-    2 classes: 'No', 'Yes' 
-
-No pre-processing
-Resampling: Cross-Validated (5 fold) 
-Summary of sample sizes: 19201, 19201, 19200, 19201, 19201 
-Resampling results across tuning parameters:
-
-  mtry  ROC        Sens       Spec        
-  2     0.5049968  0.9998613  0.0000000000
-  4     0.5022750  0.9994452  0.0000000000
-  6     0.5037901  0.9992602  0.0004219409
-
-ROC was used to select the optimal model using the largest value.
-The final value used for the model was mtry = 2.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable Importance</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#varImpPlot(rf_model$finalModel)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>train_data<span class="sc">$</span>Cholesterol_Level_Cat <span class="ot">&lt;-</span> <span class="fu">cut</span>(train_data<span class="sc">$</span>Cholesterol_Level, <span class="at">breaks=</span><span class="dv">3</span>, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>))</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train_data, <span class="fu">aes</span>(<span class="at">x =</span> BMI, <span class="at">y =</span> Heart_Attack_Occurrence, <span class="at">color =</span> Cholesterol_Level_Cat, <span class="at">group =</span> Cholesterol_Level_Cat)) <span class="sc">+</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"line"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Interaction between BMI &amp; Cholesterol on Heart Attack Risk"</span>,</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"BMI"</span>,</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Mean Heart Attack Risk"</span>,</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Cholesterol Level"</span>) <span class="sc">+</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Take-Home_Ex1_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
+</section>
+<section id="training-a-random-forest" class="level2">
+<h2 class="anchored" data-anchor-id="training-a-random-forest">12.2 Training a random forest</h2>
+<p>``{r} # Load necessary libraries library(caret)</p>
+</section>
+<section id="define-cross-validation-with-stratified-folds" class="level2">
+<h2 class="anchored" data-anchor-id="define-cross-validation-with-stratified-folds">Define Cross-validation with stratified folds</h2>
+<p>control &lt;- trainControl(method = “cv”, number = 5, classProbs = TRUE, summaryFunction = twoClassSummary, savePredictions = “final”)</p>
+<section id="train-a-random-forest-model-with-stratified-cross-validation" class="level3">
+<h3 class="anchored" data-anchor-id="train-a-random-forest-model-with-stratified-cross-validation">Train a Random Forest model with stratified cross-validation</h3>
+<p>rf_model &lt;- train(Heart_Attack_Occurrence ~ BMI + Systolic_BP + Age + Heart_Rate + Cholesterol_Level + Stress_Levels, data = train_data, method = “rf”, trControl = control, metric = “ROC”, # Use ROC-AUC for imbalanced data importance = TRUE)</p>
+</section>
+<section id="model-summary" class="level3">
+<h3 class="anchored" data-anchor-id="model-summary">Model Summary</h3>
+<p>print(rf_model)</p>
+</section>
+<section id="variable-importance" class="level3">
+<h3 class="anchored" data-anchor-id="variable-importance">Variable Importance</h3>
+<p>#varImpPlot(rf_model$finalModel)</p>
+<p>##12.3 Plotting the outcome of random forest</p>
+<p>`{r}</p>
+<p>train_data<span class="math inline">\(Cholesterol_Level_Cat &lt;- cut(train_data\)</span>Cholesterol_Level, breaks=3, labels=c(“Low”, “Medium”, “High”))</p>
+<p>ggplot(train_data, aes(x = BMI, y = Heart_Attack_Occurrence, color = Cholesterol_Level_Cat, group = Cholesterol_Level_Cat)) + stat_summary(fun = mean, geom = “line”, size = 1) + labs(title = “Interaction between BMI &amp; Cholesterol on Heart Attack Risk”, x = “BMI”, y = “Mean Heart Attack Risk”, color = “Cholesterol Level”) + theme_minimal()</p>
+<p>Results :</p>
+<p>Coefficients: Estimate Std. Error z value Pr(&gt;|z|)<br>
+(Intercept) -0.0523207 0.1132713 -0.462 0.644149<br>
+Age 0.0014766 0.0004992 2.958 0.003095 ** BMI -0.0031457 0.0018036 -1.744 0.081140 .<br>
+Diastolic_BP 0.0009575 0.0008876 1.079 0.280740<br>
+Heart_Rate 0.0011789 0.0008881 1.327 0.184387<br>
+Stress_Levels -0.0155511 0.0044518 -3.493 0.000477 <strong><em>Smoking_HistoryYes 0.0336846 0.0193652 1.739 0.081958 .<br>
+Hypertension_HistoryYes 0.0214626 0.0205319 1.045 0.295871<br>
+Alcohol_ConsumptionModerate -0.0699551 0.0202636 -3.452 0.000556</em></strong> Alcohol_ConsumptionHigh -0.0105962 0.0243683 -0.435 0.663681<br>
+Diet_QualityAverage 0.0414591 0.0245110 1.691 0.090751 .<br>
+Diet_QualityGood 0.0662170 0.0244418 2.709 0.006745 ** Physical_ActivityModerate 0.0576200 0.0215000 2.680 0.007362 ** Physical_ActivityHigh -0.0004257 0.0229865 -0.019 0.985226<br>
+Diabetes_HistoryYes 0.0684589 0.0218992 3.126 0.001771 ** — Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ’ ’ 1</p>
+<p>(Dispersion parameter for binomial family taken to be 1)</p>
+<pre><code>Null deviance: 70403  on 26984  degrees of freedom</code></pre>
+<p>Residual deviance: 70331 on 26970 degrees of freedom (3015 observations deleted due to missingness) AIC: 70361</p>
+<p>Number of Fisher Scoring iterations: 5 ```</p>
+</section>
+</section>
 </section>
 <section id="conclusion-and-summary" class="level1">
 <h1>13. Conclusion and Summary</h1>
+<section id="feature-importance-random-forest-model" class="level2">
+<h2 class="anchored" data-anchor-id="feature-importance-random-forest-model">13.1 Feature Importance (Random Forest Model)</h2>
+<p>Cholesterol Level and BMI are among the top predictors of heart attack risk. Systolic BP and Heart Rate also play a role but seem slightly less impactful. Age has the least importance in this specific model.</p>
+</section>
+<section id="interaction-between-bmi-cholesterol-on-heart-attack-risk" class="level2">
+<h2 class="anchored" data-anchor-id="interaction-between-bmi-cholesterol-on-heart-attack-risk">13.2 Interaction Between BMI &amp; Cholesterol on Heart Attack Risk</h2>
+<p>Higher cholesterol levels (blue line) show a consistently higher heart attack risk, but it slightly decreases as BMI increases. Lower cholesterol (red line) has a steeper decline in risk with increasing BMI. Medium cholesterol (green line) has a sharp drop at a certain BMI threshold, suggesting a possible nonlinear effect. Overall, cholesterol modifies the relationship between BMI and heart attack risk, showing an interaction effect. 3. Alternative Visualizations for Variable Comparisons</p>
+<p>Boxplots &amp; Violin Plots: Could be used to check how heart attack risk varies across BMI and cholesterol levels. Scatter Plots with Color/Size Encoding: Helped check relationships between continuous variables like BMI, Cholesterol, and Heart Rate. 3D Scatter Plot: Would be useful to further explore trends across three continuous features.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
