@@ -159,12 +159,9 @@ ggplot(top4_attacks,
         legend.text = element_text(size = 6) )
 ```
 
-
-
-8. Plotting Cycle Plot
+8.  Plotting Cycle Plot
 
 8.1 Step 1: Data Import
-
 
 ```{r}
 air <- read_excel("data/arrivals_by_air.xlsx")
@@ -172,7 +169,6 @@ air <- read_excel("data/arrivals_by_air.xlsx")
 ```
 
 8.2 Step 2: Deriving month and year fields
-
 
 ```{r}
 air$month <- factor(month(air$`Month-Year`), 
@@ -193,9 +189,7 @@ Vietnam <- air %>%
 
 ```
 
-
 8.4 Step 4: Computing year average arrivals by month
-
 
 ```{r}
 
@@ -227,19 +221,15 @@ ggplot() +
   theme_tufte(base_family = "Helvetica")
 ```
 
-
-9. Plotting Slopegraph
+9.  Plotting Slopegraph
 
 9.1 Step 1: Data Import
-
 
 ```{r}
 rice <- read_csv("data/rice.csv")
 ```
 
-
 9.2 Step 2: Plotting the slopegraph
-
 
 ```{r}
 
@@ -251,5 +241,3 @@ rice %>%
                 SubTitle = "1961-1980",
                 Caption = "Prepared by: Dr. Kam Tin Seong")
 ```
-
-

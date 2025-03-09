@@ -1,4 +1,563 @@
 ---
 title: "Take Home Exercise 2"
 author: "Dhreeti Shah"
+date: "`r Sys.Date()`"
+title-block-banner: true
+css: style.css
+execute:
+  echo: true
+  warning: false
+  message: false
+  output: html_document
 ---
+
+# 1.Overview
+
+Since Mr. Donald Trump took office as the President of the United States on January 20, 2025, one of the most closely watched topics has been global trade.
+
+As a visual analytics novice, I will be applying newly acquired techniques to explore and analyze the changing trends and patterns of Singapore's international trade since 2015.
+
+# 2.Load the packages
+
+Thes are all the packages we will be using for the visualization and analyses
+
+```{r}
+pacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse,dplyr)
+```
+
+# 3.Data Reading
+
+## 3.1 Setting file path
+
+```{r}
+file_path <- "data/outputFile.xlsx"
+```
+
+## 3.2 Reading the different sheets
+
+```{r}
+sheet1 <- read_excel(file_path, sheet = "T1")  # Imports
+sheet2 <- read_excel(file_path, sheet = "T2")  # Domestic Exports
+sheet3 <- read_excel(file_path, sheet = "T3")  # Re-Exports
+```
+
+## 3.3 Convert from wide to long
+
+```{r}
+df_T1_long <- sheet1 %>%
+  pivot_longer(
+    # The columns you want to pivot: all columns except the first one (Data Series)
+    cols = -`Data Series`,
+    names_to = "Date",
+    values_to = "Trade_Value"
+  )
+
+df_T2_long <- sheet2 %>%
+  pivot_longer(
+    # The columns you want to pivot: all columns except the first one (Data Series)
+    cols = -`Data Series`,
+    names_to = "Date",
+    values_to = "Trade_Value"
+  )
+
+df_T3_long <- sheet3 %>%
+  pivot_longer(
+    # The columns you want to pivot: all columns except the first one (Data Series)
+    cols = -`Data Series`,
+    names_to = "Date",
+    values_to = "Trade_Value"
+  )
+
+head(df_T3_long)
+```
+
+## 3.4 Add type column
+
+```{r}
+
+df_T1_long <- df_T1_long %>%
+  mutate(Trade_Type = "Imports")
+
+
+df_T2_long <- df_T2_long %>%
+  mutate(Trade_Type = "Domestic Exports")
+
+
+df_T3_long <- df_T3_long %>%
+  mutate(Trade_Type = "Re-exports")
+```
+
+## 3.5 View combined data
+
+```{r}
+
+df_combined <- bind_rows(df_T1_long, df_T2_long, df_T3_long)
+
+```
+
+# 4.Analysing existing Plots and graphs
+
+## 4.1 Plot 1 : MERCHANDISE TRADE PERFORMANCE WITH MAJOR TRADING PARTNERS, 2024
+
+```{r}
+knitr::include_graphics("images/image1.png")
+```
+
+### Pros :
+
+Clear Concept
+
+It's immediately evident that the size of the bubbles represents the magnitude of total trade (imports + exports) with each partner. This helps the audience see, at a glance, which partners have larger or smaller trade volumes. Simple Axes
+
+Having Imports on the y-axis and Exports on the x-axis is a straightforward approach to show which side is higher. If a point is above the diagonal, it suggests more imports than exports, and vice versa.
+
+Use of Color Regions The use of a blue vs. green background to highlight whether Singapore has a trade surplus (blue region) or deficit (green region) with a partner is intuitive.
+
+### Cons :
+
+1.Color and Contrast
+
+The green vs. blue background is helpful, but be mindful that some viewers with color vision deficiencies might have difficulty distinguishing certain colors. Also, the bubble colors themselves could be more distinctive or correspond to a category (e.g., region or continent).
+
+2.No Reference Diagonal
+
+A diagonal line (y = x) could be added to highlight the balance point where imports = exports. Right now, the color change is a background region shift, but an explicit line could help viewers see precisely where net trade is balanced.
+
+### Improvised Version
+
+Filter the data
+
+```{r}
+df_trade <- df_combined %>%
+  filter(`Data Series` %in% c("Japan", "Thailand", "Taiwan", "EU","Indonesia", "Malaysia", "China","Hong Kong","United States") & Trade_Type %in% c("Re-exports", "Domestic Exports","Imports"))
+
+```
+
+Data prep and create new columns
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+df_exports <- df_trade %>%
+  pivot_wider(
+    names_from = Trade_Type,
+    values_from = Trade_Value
+  ) %>%
+  mutate(Total_Exports = `Re-exports` + `Domestic Exports`,
+  Total_Trade = Imports + Total_Exports,Date = parse_date_time(Date,        orders = "ym"))%>%
+  filter(year(Date) == 2024)
+
+# Summing both export types
+
+```
+
+Summarise for plotting of graph
+
+```{r}
+df_trade_agg <- df_trade %>%
+  group_by(`Data Series`) %>%
+  summarise(
+    Total_Exports = sum(Trade_Value[Trade_Type %in% c("Re-exports", "Domestic Exports")], na.rm = TRUE),
+    Imports = sum(Trade_Value[Trade_Type == "Imports"], na.rm = TRUE),
+    Total_Trade = Total_Exports + Imports  # Ensure total trade is correct
+  )
+
+
+```
+
+### Make interactive
+
+```{r}
+library(ggplot2)
+library(ggrepel)
+library(scales)
+library(plotly)  # Interactive visualization
+
+# Create ggplot
+p <- ggplot(df_trade_agg, aes(
+    x = Total_Exports, 
+    y = Imports, 
+    size = Total_Trade, 
+    fill = `Data Series`, 
+    text = paste(
+      "<b>", `Data Series`, "</b><br>", 
+     "Total Exports: ", round(Total_Exports / 1e6, 2),  "B S$<br>",
+      "Imports: ", round(Imports / 1e6, 2),  "B S$<br>",
+      "Total Trade: ",  round(Total_Trade / 1e6, 2),"B S$"
+    )  # Tooltip text
+  )) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black", linewidth = 1) +
+  
+  geom_point(alpha = 0.75, shape = 21, color = "black", stroke = 1.3) +
+  geom_text(aes(label = `Data Series`), vjust = 0.5, hjust = 0.5, size = 5, fontface = "bold") +  # Center text
+  scale_size_area(max_size = 20) +
+  # Adjust bubble sizes for better spacing
+  scale_size(range = c(8, 40), breaks = c(500000, 1000000, 1500000, 2000000)) +
+  scale_fill_manual(values = c("Malaysia" = "#d73027", "Taiwan" = "#fc8d59", 
+                               "Japan" = "#fee090", "Indonesia" = "#91bfdb", 
+                               "Thailand" = "#4575b4", "Hong Kong" = "#313695",
+                               "China" = "#1b9e77")) +
+ scale_x_continuous(labels = label_number(scale = 1, suffix = "B", accuracy = 1)) +  
+ scale_y_continuous(labels = label_number(scale = 1, suffix = "B", accuracy = 1)) +  
+  theme_minimal(base_size = 14) +  
+  theme(
+    legend.position = "none",
+    axis.title = element_text(size = 16, face = "bold"),
+    axis.text = element_text(size = 14),
+    plot.title = element_text(size = 20, face = "bold"),
+    plot.subtitle = element_text(size = 16)
+  ) +
+  labs(
+    title = "Trade Performance by Country (2024)",
+    subtitle = "Comparison of Total Exports vs Imports",
+    x = "Total Exports (S$ Billion)",
+    y = "Imports (S$ Billion)"
+  )
+
+# Convert ggplot to interactive plotly
+ggplotly(p, tooltip = "text")
+
+
+
+```
+
+## 4.2 Plot 2 : Total Merchandise Trade At Current Prices ( 2020 -2024)
+
+Load existing plot
+
+```{r}
+knitr::include_graphics("images/image2.png")
+```
+
+### Pros :
+
+Clear Yearly Comparison -- The horizontal bars make it easy to compare exports, imports, and total trade across years.
+
+Good Use of Colors -- Each year has a distinct color, improving readability. Summarized Trade Total -- The total trade value for each year is highlighted separately, providing quick insights.
+
+Growth Indicator -- The 6.6% increase in 2024 is clearly displayed, giving context to the trend. Consistent Unit Format -- Using "S\$ Billion" keeps the numbers digestible and avoids unnecessary complexity.
+
+### Cons
+
+No Monthly or Regional Breakdown -- The data is only annual, missing trends within each year.
+
+Lack of Interactivity -- Users cannot hover to see exact figures or filter by specific regions. Not Easily Scalable -- Adding more years could make the visualization cluttered.
+
+Imports and Exports Are Hard to Compare -- Placing them separately makes it harder to compare trends across the years.
+
+### Improvised Version
+
+1.First we mutate and convert the values as needed
+
+```{r}
+df_plot1 <- df_combined %>%
+ 
+   mutate(Date = parse_date_time(Date, "Y b"),  # Converts to proper Date format
+         Year = factor(year(Date), levels = rev(unique(year(Date)))),  # Extract Year
+         Trade_Value_Bil = Trade_Value / 1000)  # Convert to Billions
+
+
+```
+
+2.  Filter data for 2020- 2024
+
+```{r}
+
+filtered_plot2 <- df_plot1 %>%
+  filter(lubridate::year(Date) >= 2020 & lubridate::year(Date) <= 2024)
+  
+```
+
+3.  Plot the graph
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(plotly)
+
+
+
+# Create Interactive Bar Chart
+p <- filtered_plot2 %>%
+  plot_ly(
+    x = ~Trade_Value_Bil, 
+    y = ~Year,  
+    color = ~Trade_Type,  
+    type = "bar", 
+    orientation = "h",  
+    text = ~paste0("S$ ", round(Trade_Value_Bil, 1), "B"), 
+    hoverinfo = "text"
+  ) %>%
+  layout(
+    title = "Total Merchandise Trade at Current Prices (2020-2025)",  # <- Fixed title format
+    xaxis = list(title = "Trade Value (Billion S$)", tickformat = ".1f"),  
+    yaxis = list(title = "Year"),  
+    barmode = "stack",  
+    legend = list(title = list(text = "Trade Type"))
+  )
+
+# Show Plot
+p
+
+
+```
+
+This graph is more interactive and better to visualize all 3, which includes re -exports,imports and domestic export. In this graph we can compare the different value across years more easily.
+
+## 4.3 Plot 3: Non Oil Domestic Exports for 2024
+
+1.  Load the plot
+
+```{r}
+knitr::include_graphics("images/image3.png")
+```
+
+2.  Pros and Cons of Existing Plot
+
+### Pros :
+
+Visually Appealing -- The infographic uses a ship metaphor to represent exports, making it engaging. Easy to Understand -- Clear color-coded sections and icons help differentiate categories. Provides a High-Level Overview -- It summarizes export categories well, showing relative contributions. Good Use of Space -- The labels and callouts are well-placed, reducing clutter.
+
+### Cons :
+
+Lack of Granularity -- Some categories, like "Chemicals & Chemical Products" and "Machinery & Transport Equipment," are broad; a more detailed breakdown (e.g., Pharmaceuticals, Petrochemicals, Telecommunications Equipment) would be useful. No Comparisons or Trends -- It only presents absolute values without showing growth or decline
+
+### Improvised Version
+
+1.  Load the data for Non-Oil Exports
+
+```{r}
+ nonoil_df <- read_csv(
+  "data/non-oil_exports.csv")
+```
+
+2.  Filter data for 2024
+
+```{r}
+filtered_data <- nonoil_df %>%
+  select(`Data Series`, matches("2024"))  
+```
+
+3.  Format to long and mutate date
+
+```{r}
+long_data <- filtered_data %>%
+ pivot_longer(
+    cols = -`Data Series`,  # Everything except the "Data Series" column
+    names_to = "Month",
+    values_to = "Value"
+  ) %>%
+  mutate(
+    Month = parse_date_time(Month, orders = "ym"),  # Convert Year-Month
+    Month = floor_date(Month, "month")  # Keep only Year-Month
+  )
+```
+
+#### Using a tree map
+
+```{r, echo=FALSE, fig.height=6, fig.width=8}
+library(plotly)
+library(tidyverse)
+
+
+# Create Animated Treemap
+fig <- plot_ly(
+  long_data,
+  type = "treemap",
+  labels = ~`Data Series`,
+  parents = "",  
+  values = ~Value,
+  textinfo = "label+value+percent parent",
+  frame = ~Month  # Creates animation frames for each month
+) %>%
+  layout(
+    title = "Non-Oil Domestic Exports Breakdown (2024)",
+    updatemenus = list(
+      list(
+        type = "buttons",
+        x = 1.1, y = 1,  
+        buttons = list(
+          list(label = "Play", method = "animate", args = list(NULL, list(frame = list(duration = 800, redraw = TRUE)))),
+          list(label = "Pause", method = "animate", args = list(NULL, list(mode = "immediate", frame = list(duration = 0))))
+        )
+      )
+    )
+  )
+
+
+fig
+
+```
+
+#### Line chart
+
+```{r, echo=FALSE, fig.height=6, fig.width=8}
+fig2 <- long_data %>%
+  plot_ly(
+    x = ~Month,
+    y = ~Value,
+    color = ~`Data Series`,
+    type = "scatter",
+    mode = "lines+markers",
+    hoverinfo = "text",
+    text = ~paste("Month:", Month, "<br>Category:", `Data Series`, "<br>Value:", Value)
+  ) %>%
+  layout(
+    title = "Non-Oil Domestic Exports Over 2024",
+    xaxis = list(title = "Month"),
+    yaxis = list(title = "Export Value (SGD)")
+  )
+
+fig2
+
+```
+
+# 5.Time Series
+
+## 5.1 Load the packages
+
+```{r}
+pacman::p_load(tidyverse, tsibble, feasts, fable, seasonal)
+```
+
+## 5.2 Data prep and cleaning
+
+```{r}
+df_timeseries <- sheet1 %>%
+  pivot_longer(cols = -`Data Series`, names_to = "date", values_to = "value") %>%
+   mutate(date = as.Date(parse_date_time(date, orders = "Y b")),  # Convert to Date
+         category = `Data Series`
+  ) %>%
+  filter(!is.na(category),
+         !str_detect(category, "nil|negligible|not significant"),
+    !is.na(value))  %>%
+  select(date, category, value)
+        
+```
+
+## 5.3 Convert to tsibble object
+
+```{r, echo=FALSE}
+import_ts <- df_timeseries %>%
+ as_tsibble(index = date, key = category)
+```
+
+```{r}
+import_ts <- import_ts %>%
+  mutate(date = yearmonth(date)) %>%  # Convert to yearmonth format
+  as_tsibble(index = date, key = category)  # Convert to tsibble
+```
+
+# 6.Timeseries visualization and analyses
+
+## 6.1 Plotting overall trends over time
+
+```{r}
+library(ggplot2)
+library(feasts)
+
+# Overall import trends
+import_ts %>%
+  filter(category == "Total All Markets") %>%
+  autoplot(value) +
+  ggtitle("Total Imports Over Time") +
+  xlab("Year") +
+  ylab("Import Value")
+
+```
+
+## 6.2. Compare trends across major countries
+
+```{r}
+import_ts %>%
+  filter(category %in% c("Total All Markets", "America", "Europe", "Asia","Australia","Africa")) %>%
+  ggplot(aes(x = date, y = value, color = category)) +
+  geom_line() +
+  ggtitle("Import Trends by Region") +
+  xlab("Year") +
+  ylab("Import Value") +
+  theme_minimal()
+
+```
+
+## 6.3 Seasonal Plots by Imports
+
+```{r}
+library(feasts)
+library(ggplot2)
+#| fig-height :30
+#| fig-width : 20
+import_ts %>%
+  filter(category %in% c("America", "Europe", "Asia")) %>%
+  as_tsibble(index = date, key = category) %>%
+  gg_season(value) + # value being your time series column
+  ggtitle("Seasonal Plot of Imports by Region") +
+  xlab("Month") +
+  ylab("Import Value") +
+  facet_wrap(~ category) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+
+```
+
+Key takeways :
+
+Yearly Comparisons: Imports in 2022 (purple) are significantly higher than in previous years. Asia has the highest import values, followed by America and Europe. Seasonality Differences: The shape of the lines suggests that imports peak during certain months and dip in others. Asia shows stronger seasonality effects compared to America and Europe.
+
+## 6.4 Cyclic Plot
+
+```{r}
+library(feasts)
+library(ggplot2)
+
+# Plotting Cyclic Trends using gg_subseries() for multiple countries/continents
+import_ts %>%
+  filter(category %in% c("Australia", "Africa", "America", "Europe", "Asia")) %>%  # Filter for selected countries/continents
+  as_tsibble(index = date, key = category) %>% 
+  fill_gaps() %>%# Convert to tsibble format
+  gg_subseries(value) +  # Subseries plot for Arrivals
+  ggtitle("Cyclic Trends of Imports for Selected Continents") +
+  xlab("Month") +
+  ylab("Import Value") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+
+```
+
+Key Takeways ;
+
+General Trend: Imports across all continents are increasing over time.
+
+Monthly Patterns: Each panel represents a month, showing how imports behave cyclically. The blue horizontal line represents the average for that month.
+
+Key Observations:
+
+Imports in Asia and Europe are significantly higher compared to Africa and Australia.
+
+Seasonal fluctuations appear more prominent in some continents, like Asia. There are visible peaks in specific months, potentially due to trade cycles, global events, or policy changes.
+
+## 6.5 STL Decomposition
+
+```{r}
+import_ts %>%
+  filter(category == "Total All Markets") %>%
+  
+  
+  model(STL(value ~ season(window = "periodic"))) %>%
+  components() %>%
+  autoplot()
+
+
+
+```
+
+Key Takeways :
+
+Trend Component: The overall trend shows a steady increase in imports over time, with a noticeable dip around 2010 and a sharp rise after 2020.
+
+Seasonality Component: There is a strong yearly cyclic pattern in imports, meaning certain months experience repeated increases/decreases.
+
+Remainder Component: The residuals show some variability, especially after 2015, which might indicate external shocks (e.g., economic crises, policy changes).
