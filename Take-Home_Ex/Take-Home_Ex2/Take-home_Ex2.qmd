@@ -454,6 +454,11 @@ import_ts <- import_ts %>%
 ## 6.1 Plotting overall trends over time
 
 ```{r}
+test
+```
+
+
+```{r}
 library(ggplot2)
 library(feasts)
 
