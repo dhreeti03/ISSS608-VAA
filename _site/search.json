@@ -999,5 +999,12 @@
     "title": "Take Home Exercise 2",
     "section": "6.5 STL Decomposition",
     "text": "6.5 STL Decomposition\n\nimport_ts %&gt;%\n  filter(category == \"Total All Markets\") %&gt;%\n  \n  \n  model(STL(value ~ season(window = \"periodic\"))) %&gt;%\n  components() %&gt;%\n  autoplot()\n\n\n\n\nKey Takeways :\nTrend Component: The overall trend shows a steady increase in imports over time, with a noticeable dip around 2010 and a sharp rise after 2020.\nSeasonality Component: There is a strong yearly cyclic pattern in imports, meaning certain months experience repeated increases/decreases.\nRemainder Component: The residuals show some variability, especially after 2015, which might indicate external shocks (e.g., economic crises, policy changes)."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.html",
+    "href": "Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.html",
+    "title": "Hands on exercise 8",
+    "section": "",
+    "text": "test"
   }
 ]
