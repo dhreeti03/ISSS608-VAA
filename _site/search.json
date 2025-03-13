@@ -956,7 +956,7 @@
     "href": "Take-Home_Ex/Take-Home_Ex2/Take-home_Ex2.html#data-prep-and-cleaning",
     "title": "Take Home Exercise 2",
     "section": "5.2 Data prep and cleaning",
-    "text": "5.2 Data prep and cleaning"
+    "text": "5.2 Data prep and cleaning\n\ndf_timeseries &lt;- sheet1 %&gt;%\n  pivot_longer(cols = -`Data Series`, names_to = \"date\", values_to = \"value\") %&gt;%\n   mutate(date = as.Date(parse_date_time(date, orders = \"Y b\")),  # Convert to Date\n         category = `Data Series`\n  ) %&gt;%\n  filter(!is.na(category),\n         !str_detect(category, \"nil|negligible|not significant\"),\n    !is.na(value))  %&gt;%\n  select(date, category, value)"
   },
   {
     "objectID": "Take-Home_Ex/Take-Home_Ex2/Take-home_Ex2.html#convert-to-tsibble-object",
@@ -970,7 +970,7 @@
     "href": "Take-Home_Ex/Take-Home_Ex2/Take-home_Ex2.html#plotting-overall-trends-over-time",
     "title": "Take Home Exercise 2",
     "section": "6.1 Plotting overall trends over time",
-    "text": "6.1 Plotting overall trends over time\n\nlibrary(ggplot2)\nlibrary(feasts)\n\n# Overall import trends\nimport_ts %&gt;%\n  filter(category == \"Total All Markets\") %&gt;%\n  autoplot(value) +\n  ggtitle(\"Total Imports Over Time\") +\n  xlab(\"Year\") +\n  ylab(\"Import Value\")"
+    "text": "6.1 Plotting overall trends over time\n\nlibrary(ggplot2)\nlibrary(feasts)\n\n# Overall import trends\nimport_ts %&gt;%\n  filter(category == \"Total All Markets\") %&gt;%\n  autoplot(value) +\n  ggtitle(\"Total Imports Over Time\") +\n  xlab(\"Year\") +\n  ylab(\"Import Value\")\n\n\n\n\n\nlibrary(ggplot2)\nlibrary(feasts)\n\n# Overall import trends\nimport_ts %&gt;%\n  filter(category == \"Total All Markets\") %&gt;%\n  autoplot(value) +\n  ggtitle(\"Total Imports Over Time\") +\n  xlab(\"Year\") +\n  ylab(\"Import Value\")"
   },
   {
     "objectID": "Take-Home_Ex/Take-Home_Ex2/Take-home_Ex2.html#compare-trends-across-major-countries",

@@ -22,7 +22,7 @@ As a visual analytics novice, I will be applying newly acquired techniques to ex
 Thes are all the packages we will be using for the visualization and analyses
 
 ```{r}
-pacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse,dplyr)
+pacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse,dplyr,)
 ```
 
 # 3.Data Reading
@@ -454,9 +454,17 @@ import_ts <- import_ts %>%
 ## 6.1 Plotting overall trends over time
 
 ```{r}
-test
-```
+library(ggplot2)
+library(feasts)
 
+# Overall import trends
+import_ts %>%
+  filter(category == "Total All Markets") %>%
+  autoplot(value) +
+  ggtitle("Total Imports Over Time") +
+  xlab("Year") +
+  ylab("Import Value")
+```
 
 ```{r}
 library(ggplot2)
