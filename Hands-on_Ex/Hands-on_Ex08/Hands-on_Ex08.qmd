@@ -1,8 +1,17 @@
 ---
-title: "Hands on exercise 8"
-author: "dhreeti shah"
+title: "Hands-on Exercise 8B"
+author: "Dhreeti Shah"
+date: today
+format:
+  html:
+    theme: cosmo
+    toc: true
+    number-sections: true
+    code-fold: true
+editor: visual
+execute: 
+  warnings: false
 ---
-
 #Choropleth Mapping with R
 
 # 1.Overview

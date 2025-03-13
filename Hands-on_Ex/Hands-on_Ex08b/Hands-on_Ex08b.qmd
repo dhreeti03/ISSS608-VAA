@@ -1,6 +1,16 @@
 ---
-title: "Hands on exercise 8b"
-author: "Dhreeti shah"
+title: "Hands-on Exercise 8B"
+author: "Dhreeti Shah"
+date: today
+format:
+  html:
+    theme: cosmo
+    toc: true
+    number-sections: true
+    code-fold: true
+editor: visual
+execute: 
+  warnings: false
 ---
 
 #Visualising Geospatial Point Data

@@ -1,1 +1,6 @@
 /* css styles */
+/* Limit dropdown height and add scrollbar */
+.navbar-nav .dropdown-menu {
+    max-height: 300px;  /* Adjust height as needed */
+    overflow-y: auto;   /* Enable vertical scrolling */
+}
