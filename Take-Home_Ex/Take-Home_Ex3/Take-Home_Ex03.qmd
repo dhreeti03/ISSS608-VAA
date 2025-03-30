@@ -1,0 +1,580 @@
+---
+title: "Take Home Exercise 3"
+author: "Dhreeti Shah"
+date: "`r Sys.Date()`"
+title-block-banner: true
+format:
+  html:
+    theme: flatly  # Change theme for a modern look
+    highlight: tango  # Improve code block readability
+css: style.css
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# 1.Overview
+
+This take home exercise 3 will look into performing analysis for the final project.For my component we will looking into CDA, Time series and building an exploratory model using Panel regression.
+
+# 2.Load Required Libraries
+
+```{r}
+# Install and load required packages in one go
+if (!requireNamespace("pacman", quietly = TRUE)) install.packages("pacman")
+
+pacman::p_load(
+  # Data Import & Manipulation
+  readr, readxl, dplyr, tidyr, lubridate, 
+
+  # Exploratory Data Analysis (EDA)
+  ggplot2, plotly, GGally, corrplot, skimr, 
+
+  # Geospatial Visualization
+  maps, mapdata, sf, rnaturalearth, rnaturalearthdata, 
+
+  # Confirmatory Data Analysis (CDA)
+  car, lmtest, randomForest, factoextra, cluster, 
+
+  # Time Series Analysis & Forecasting
+  tsibble, feasts, fable, fabletools, forecast, tseries, urca, plm,
+
+  # Additional Utilities
+  janitor, stringr, zoo
+)
+
+# Check if all packages are successfully loaded
+sessionInfo()
+
+```
+
+# 3.  Load Dataset
+
+```{r}
+world_happiness_data <- read_csv("data/world_happiness.csv")
+```
+
+# 4.  Checking for Stationary in Data
+
+Before forecasting, we need to determine whether the happiness score (or any other variable of interest) is stationary. A stationary time series has a constant mean and variance over time.
+
+## 4.1 Augmented Dickey-Fuller (ADF) Test
+
+The ADF (Augmented Dickey-Fuller) test is used to see if a time series is stationary. Here's how to interpret the results:
+
+The Hypothesis: The test has a null hypothesis that the data has a unit root, which means it's not stationary. The alternative hypothesis is that the data is stationary or trend-stationary. The Output: The ADF test gives you a test statistic, a p-value, and critical values at different significance levels (like 1% or 5%).
+
+Interpreting the p-value: A low p-value (less than your chosen significance level) means you reject the null hypothesis. In this case, that means the data is likely stationary.
+
+Interpreting the test statistic: The test statistic is negative. The more negative it is, the stronger the evidence against the null hypothesis (i.e., stronger evidence for stationarity).
+
+Here P value is 5% (0.05)
+
+```{r}
+
+library(tseries)
+happiness_afg <- world_happiness_data %>% filter(country == "Mexico")
+
+happiness_afg <- happiness_afg %>%
+  mutate(log_ladder_score = log(ladder_score))
+adf_test <- adf.test(happiness_afg$ladder_score)
+print(adf_test)
+
+
+
+
+```
+
+From the above results, we see that the p-value is still greater than 0.05 hence the data is still not stationary hence we will perform a first difference and then run the ADF test again.
+
+```{r}
+library(dplyr)
+library(tseries)  # For ADF test
+
+# Apply differencing using lag() to avoid length mismatch
+happiness_afg <- happiness_afg %>%
+  mutate(diff_ladder_score = ladder_score - lag(ladder_score))
+
+# Run ADF test on the differenced data
+adf_test_diff <- adf.test(na.omit(happiness_afg$diff_ladder_score), k = 2)
+print(adf_test_diff)
+
+
+```
+
+Now the data is stationary and we can proceed with other analysis
+
+# 5.Decomposing Time Series
+
+Time series decomposition is a fundamental technique used to break down a time series into its primary components: trend, seasonality, and residual.
+
+1.  Trend: The trend component of a time series represents the long-term movement or direction of the data. It captures the underlying, persistent behavior of the series, which may be characterized by a gradual increase, decrease, or stability over an extended period
+2.  Residual: The residual component, also known as the error or irregular component, captures the random fluctuations or noise in the time series data that cannot be explained by the trend or seasonality. Residuals are the unexplained variability within the data, often reflecting the influence of unpredictable or external factors
+
+```{r}
+# Load required libraries
+library(feasts)
+library(tsibble)
+library(ggplot2)
+
+# Convert dataset to a tsibble (time series tibble)
+happiness_afg <- happiness_afg %>% mutate(year = as.integer(year)) %>% as_tsibble(index = year)
+
+# STL decomposition
+happiness_decomp <- happiness_afg %>%
+  model(STL(ladder_score ~ trend(window = 7) + season(window = "periodic")))
+
+# Plot decomposition
+components <- happiness_decomp %>% components()
+autoplot(components)
+
+```
+
+From this plot we can interpretation the following : The declining trend from 2015 to around 2020 suggests that happiness levels were decreasing during this period.
+
+The upward trend after 2020 shows an improvement in happiness scores.
+
+The remainder (residuals) fluctuates, meaning there are some short-term variations that the trend component does not explain.
+
+# 6.  ACF and PACF interpretation
+
+The Autocorrelation Function (ACF) The ACF plots the correlation of the time series with itself at different lags. This helps in identifying patterns such as seasonality, trends, and the persistence of values over time.
+
+Partial Autocorrelation Partial autocorrelation measures the correlation between observations at two time points, accounting for the values of the observations at all shorter lags. This helps isolate the direct relationship between observations at different lags, removing the influence of intermediary observations.
+
+```{r}
+par(mfrow = c(1,2))  # Set layout for side-by-side plots
+
+acf(happiness_afg$ladder_score, main = "Autocorrelation Function (ACF)")
+pacf(happiness_afg$ladder_score, main = "Partial Autocorrelation Function (PACF)")
+
+```
+
+Based on the plots :
+
+The significant spike at lag 1 in both plots suggests that happiness in one time period is directly influenced by happiness in the immediately preceding time period. This makes intuitive sense - national happiness tends to have some momentum rather than changing dramatically between measurements. The AR(1) pattern indicates that a country's happiness score can be reasonably modeled as depending primarily on its previous year's score plus some random variation. The spike at lag 10 might suggest:
+
+A cyclical pattern in happiness that repeats approximately every 10 time periods Potential correlation with economic or political cycles Possible influence of longer-term social changes
+
+The pattern suggests that immediate past happiness is a strong predictor of current happiness, but the relationship weakens as you look further back in time. This aligns with how social and economic factors that influence happiness tend to evolve gradually rather than changing abruptly.
+
+```{r}
+happiness_region <- world_happiness_data %>%
+  group_by(year, region) %>%
+  summarize(ladder_score = mean(ladder_score, na.rm = TRUE))
+
+# Convert to tsibble for time series analysis
+happiness_region <- happiness_region %>% as_tsibble(index = year, key = region)
+
+# STL decomposition for each region
+happiness_decomp_region <- happiness_region %>%
+  model(STL(ladder_score ~ trend(window = 7) + season(window = "periodic")))
+
+# Plot decomposition for regions
+happiness_decomp_region %>%
+  components() %>%
+  autoplot()
+
+```
+
+The data was grouped to see the regional trends
+
+# 7.  Correlation matrix
+
+```{r}
+library(dplyr)
+library(corrplot)
+
+# Select numeric variables only
+numeric_vars <- world_happiness_data %>%
+  select(where(is.numeric))
+
+# Compute correlation matrix
+cor_matrix <- cor(numeric_vars, use = "complete.obs")
+
+# Visualize correlation matrix
+corrplot(cor_matrix, method = "color", type = "upper", tl.cex = 0.8, tl.col = "black")
+
+```
+
+# 8.  Regression analysis
+
+```{r}
+model <- lm(ladder_score ~ economy_score + social_score + lifeexpectancy_score + freedom_score +
+              generosity_score + corrperception_score, data = world_happiness_data)
+
+summary(model)
+
+```
+
+## 8.1 Check multi-colinearilty
+
+```{r}
+library(car)
+vif(model)
+
+```
+
+## 8.2 Check regression by region
+
+```{r}
+library(broom)
+library(dplyr)
+
+regional_models <- world_happiness_data %>%
+  group_by(region) %>%
+  group_modify(~ tidy(lm(ladder_score ~ economy_score + social_score + 
+                          lifeexpectancy_score + freedom_score + 
+                          generosity_score + corrperception_score, data = .)))
+
+print(regional_models)
+
+```
+
+Correlation Matrix and Regression analysis were done to understand which factor provides more influence but after further research came to know that this is not very helpful as the data is time-series and we need to perfom Panel regression to undersand better since we need to compare in one year what factors have made the difference and not just all the factors in the data. Random forest
+
+# 9.  Random Forest
+
+```{r}
+library(randomForest)
+
+# Remove non-numeric columns
+happiness_rf <- world_happiness_data %>%
+  select(-c(country, region)) %>%
+  na.omit()
+
+# Fit Random Forest Model
+set.seed(123)
+rf_model <- randomForest(ladder_score ~ ., data = happiness_rf, importance = TRUE)
+
+# Show importance scores
+importance(rf_model)
+varImpPlot(rf_model)
+
+```
+
+As based on these models we see economy score as being highly important but later we will see how it changes when we conduct a Panel Regression model.
+
+# 10. Time Series Forecast
+
+In this next section we will perform a time series forecast for the next 5 years to see how happiness factors for indiivual.
+
+## 10.1 Arima Model Forecasting
+
+We will use the Arima model to forecast since our data is stationary we can use the ARIMA(1,0,0)
+
+```{r}
+library(forecast)
+
+# Fit an ARIMA model
+
+arima_test <- arima(happiness_afg$ladder_score,order = c(1,0,0))
+
+arima_forecast <- forecast(arima_test, h = 5)
+
+# Plot the forecast
+autoplot(arima_forecast)
+
+```
+
+## 10.2 Exponential smoothing ( ETS)
+
+Now we will look into another time forecasting model which is the ETS (Error,Trend,Seasonal.Time series forecasting method that gives exponentially decreasing weights to past observations, with more recent data points having greater influence on forecasts.
+
+```{r}
+# Fit an ETS model
+ets_model <- ets(happiness_afg$ladder_score)
+
+# Forecast the next 5 years
+ets_forecast <- forecast(ets_model, h = 5)
+
+# Plot the forecast
+autoplot(ets_forecast)
+
+```
+
+The ARIMA model forecasts a slight downward trend, while the ETS model predicts stability The ETS model shows more symmetrical confidence intervals that widen more dramatically The ARIMA model seems to be giving more weight to the recent upward trend in the data
+
+Without additional metrics like AIC, BIC, or forecast error measurements, it's difficult to determine which model performs better. The choice between them would depend on whether you believe the country's happiness score is more likely to continue its recent momentum (favoring ARIMA) or revert to a stable level (favoring ETS).
+
+Hence lets deep dive into further additional metrics to understand what is better
+
+## 10.3 Comparing the two models 
+
+```{r}
+
+# Add accuracy metrics
+library(forecast)
+
+# Calculate accuracy metrics for both models
+arima_accuracy <- accuracy(arima_forecast)
+ets_accuracy <- accuracy(ets_forecast)
+
+# Print accuracy metrics
+print("ARIMA Accuracy Metrics:")
+print(arima_accuracy)
+print("ETS Accuracy Metrics:")
+print(ets_accuracy)
+
+# Calculate information criteria
+arima_aic <- AIC(arima_test)
+arima_bic <- BIC(arima_test)
+ets_aic <- AIC(ets_model)
+ets_bic <- BIC(ets_model)
+
+# Print information criteria
+cat("ARIMA AIC:", arima_aic, "  ARIMA BIC:", arima_bic, "\n")
+cat("ETS AIC:", ets_aic, "  ETS BIC:", ets_bic, "\n")
+
+# Residual analysis
+checkresiduals(arima_test)
+checkresiduals(ets_model)
+
+# Cross-validation (if you have enough data)
+# Using k-fold cross-validation for time series
+k <- 5  # Number of folds
+if(length(happiness_afg$ladder_score) > 10) {  # Only if you have enough data
+  library(tseries)
+  
+  # Function to perform k-fold cross-validation
+  cv_rmse <- function(model_type, ts_data, k) {
+    n <- length(ts_data)
+    fold_size <- floor(n/k)
+    errors <- numeric(k-1)
+    
+    for(i in 1:(k-1)) {
+      train_end <- n - (k-i)*fold_size
+      train_data <- ts_data[1:train_end]
+      test_data <- ts_data[(train_end+1):(train_end+fold_size)]
+      
+      if(model_type == "arima") {
+        model <- arima(train_data, order = c(1,0,0))
+        pred <- forecast(model, h = fold_size)
+      } else {
+        model <- ets(train_data)
+        pred <- forecast(model, h = fold_size)
+      }
+      
+      errors[i] <- sqrt(mean((test_data - pred$mean)^2))
+    }
+    
+    return(mean(errors))
+  }
+  
+  arima_cv_rmse <- cv_rmse("arima", happiness_afg$ladder_score, k)
+  ets_cv_rmse <- cv_rmse("ets", happiness_afg$ladder_score, k)
+  
+  cat("ARIMA CV RMSE:", arima_cv_rmse, "\n")
+  cat("ETS CV RMSE:", ets_cv_rmse, "\n")
+}
+
+# Plot both forecasts together for comparison
+plot(arima_forecast, main="ARIMA vs ETS Forecast Comparison", 
+     xlab="Time", ylab="Happiness Score")
+lines(ets_forecast$mean, col="red")
+legend("bottomright", legend=c("ARIMA", "ETS"), 
+       col=c("blue", "red"), lty=1)
+```
+
+Based on the results ETS has a better choice for forecasting The ETS(M,N,N) model appears to be the better choice for forecasting happiness scores based on:
+
+Better information criteria (substantially lower AIC and BIC) slightly better forecasting accuracy in cross-validation Comparable or better error metrics on the training data
+
+# 11. Longitudinal Analysis
+
+(Event-based Changes) Interrupted Time Series Analysis (ITS) is a method used to evaluate the impact of an event or policy change on a time series. For example, a policy shift like a new government initiative or an economic crisis could alter happiness scores.
+
+CausalImpact package in R helps with this analysis. It uses Bayesian structural time series models to detect causal effects in time series data.
+
+## 11.1 Casual Impact before and after covid
+
+```{r}
+library(CausalImpact)
+library(dplyr)
+library(tidyr)
+library(zoo)
+
+# Select only relevant columns and ensure data is ordered
+happiness_data <- happiness_afg %>%
+  select(year, ladder_score) %>%
+  arrange(year)
+
+# Convert to a properly structured time series (zoo object)
+happiness_ts <- zoo(happiness_data$ladder_score, order.by = happiness_data$year)
+
+# Define pre- and post-event periods
+pre_period <- c(min(happiness_data$year), 2019)   # Adjust event year if needed
+post_period <- c(2020, max(happiness_data$year))  # Ensure this is correct
+
+# Run CausalImpact analysis
+impact <- CausalImpact(happiness_ts, pre.period = pre_period, post.period = post_period)
+
+# Print summary and plot results
+summary(impact)
+summary(impact, "report")
+
+plot(impact)
+
+
+```
+
+The analysis suggests COVID-19 had a substantial negative causal effect on happiness levels, with the impact deepening over time rather than showing immediate recovery. The model suggests that without the pandemic, happiness levels would have remained relatively stable around 6.7-6.8, but instead experienced a significant decline.
+
+The aim of this analysis would be to use in shiny dashboard to allow users to compare covid affects in different countries.
+
+# 12.  Panel Regression for Time series data
+
+## 12.1 Filter and convert to panel data structure
+
+```{r}
+# Load dataset
+df <- world_happiness_data %>%
+  select(country, year, ladder_score, economy_score, social_score, 
+         lifeexpectancy_score, freedom_score, generosity_score, corrperception_score) %>%
+  drop_na()
+
+# Convert to panel data structure
+df <- pdata.frame(df, index = c("country", "year"))  # Define panel index
+
+```
+
+## 12.2 Fit Fixed Effects (FE) and Random Effects (RE) Models
+
+```{r}
+# Fixed Effects Model (FE)
+fe_model <- plm(ladder_score ~ economy_score + social_score + lifeexpectancy_score +
+                  freedom_score + generosity_score + corrperception_score, 
+                data = df, model = "within")
+
+# Random Effects Model (RE)
+re_model <- plm(ladder_score ~ economy_score + social_score + lifeexpectancy_score +
+                  freedom_score + generosity_score + corrperception_score, 
+                data = df, model = "random")
+
+```
+
+## 12.3 Compare FE vs RE (Hausman Test)
+
+To decide which one to use?
+
+```{r}
+library(lmtest)
+hausman_test <- phtest(fe_model, re_model)
+
+print(hausman_test)
+
+```
+
+## 12.4 Refine fixed effect model
+
+```{r}
+fe_model <- plm(ladder_score ~ economy_score + social_score + lifeexpectancy_score +
+                  freedom_score + generosity_score + corrperception_score, 
+                data = df, model = "within")
+summary(fe_model)
+
+```
+
+## 12.5 Check model fit
+
+```{r}
+library(performance)
+r2(fe_model)  # R-squared for model fit
+
+```
+
+1.  Model Fit (R² and Adjusted R²) R² = 0.127: This means your model explains 12.7% of the variance in happiness scores.
+
+Adj. R² = 0.023: Since it's low, the model may not generalize well, and some variables may not contribute much.
+
+| Predictor | Estimate | p-value | Interpretation |
+|-----------|----------|---------|----------------|
+
+|                   |        |           |                                          |
+|---------------|---------------|---------------|---------------------------|
+| **Economy Score** | 0.1208 | 0.0193 \* | Higher GDP increases happiness slightly. |
+
+|                    |        |                |                                              |
+|---------------|---------------|---------------|---------------------------|
+| **Social Support** | 0.1799 | 2.4e-05 \*\*\* | Strong social connections improve happiness. |
+
+|                     |        |           |                                                   |
+|---------------|---------------|---------------|-----------------------------|
+| **Life Expectancy** | 0.2085 | 0.0134 \* | Longer life expectancy correlates with happiness. |
+
+|             |        |                |                                                                      |
+|-------------|-------------|-------------|--------------------------------|
+| **Freedom** | 0.6980 | 2.6e-15 \*\*\* | **Strongest effect:** More freedom = significantly higher happiness. |
+
+|                |        |                |                                           |
+|---------------|---------------|---------------|---------------------------|
+| **Generosity** | 1.0184 | 3.6e-10 \*\*\* | More generous countries are much happier. |
+
+|                           |        |                |                                                                     |
+|--------------|--------------|--------------|-----------------------------|
+| **Corruption Perception** | 1.0002 | 4.0e-06 \*\*\* | Lower corruption perception **strongly** correlates with happiness. |
+
+🔹 Freedom, Generosity, and Corruption Perception have the strongest effects on happiness. 🔹 Economic growth matters but has a smaller impact than social and governance factors.
+
+## 13.  Feature importance for explanatory model
+
+```{r}
+library(tibble)  # Ensure tibble is loaded
+
+coef_df <- as.data.frame(coef(summary(fe_model))) %>%
+  rownames_to_column(var = "Feature") %>%
+  rename(Coefficient = Estimate)
+
+```
+
+## 13.1 Visualizing Coefficients :
+
+```{r}
+library(ggplot2)
+ggplot(coef_df, aes(x = Coefficient, y = reorder(Feature, Coefficient))) +
+  geom_col(fill = "steelblue") +
+  labs(title = "Feature Importance (Fixed Effects Model)", x = "Coefficient", y = "Feature") +
+  theme_minimal()
+
+```
+
+## 13.2 Comparing models across regions
+
+```{r}
+fe_model_asia <- plm(ladder_score ~ economy_score + social_score + lifeexpectancy_score +
+                        freedom_score + generosity_score + corrperception_score, 
+                      data = world_happiness_data[world_happiness_data$region == "Asia",], model = "within")
+
+fe_model_europe <- plm(ladder_score ~ economy_score + social_score + lifeexpectancy_score +
+                          freedom_score + generosity_score + corrperception_score, 
+                        data = world_happiness_data[world_happiness_data$region == "Europe",], model = "within")
+
+summary(fe_model_asia)
+summary(fe_model_europe)
+
+```
+
+Based on this we can :
+
+Europe's model explains happiness better (higher R² & adjusted R²), meaning factors like economy, social support, life expectancy, freedom, generosity, and corruption perception explain more of the variance in happiness for European countries than for Asian countries.
+
+Asia has greater overall variance in happiness (higher TSS), indicating that happiness is more heterogeneous across Asian countries compared to Europe.
+
+Asia's residual variance (RSS = 102.56) is higher than Europe's (RSS = 55.091), suggesting that there are unobserved factors influencing happiness in Asia that are not captured by this model.
+
+Policy Implications: Since the same model structure fits better for Europe, it might mean that happiness in Asia is influenced by additional cultural, societal, or economic factors not included in the model.
+
+This means this can be useful for our dashboard to help understand which factors are more important in which region.
+
+# 14.  Conclusion
+
+These analysis will help define the flow for dashboard
+
+📌 Panel Model Validation ✔ Hausman test (Fixed vs. Random effects) ✔ R-squared values for different variations ✔ Serial correlation & heteroskedasticity tests
+
+📌 Visualizations & Insights ✔ Coefficient plot ✔ Top features and their impact ✔ Predicted vs. actual scores
+
+📌 Custom Panel Analysis ✔ Happiness trends for different regions ✔ Forecast future happiness based on past trends
+
+📌 Interactive User Tools ✔ Compare happiness trends by country ✔ Simulate happiness scores with different factors

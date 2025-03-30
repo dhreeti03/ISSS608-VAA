@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dhreeti Shah">
+<meta name="dcterms.date" content="2025-03-30">
+
+<title>ISSS608-VAA - Take Home Exercise 3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">ISSS608-VAA</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Hands-on Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03a/Hands-on_Ex03a.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 3a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03b/Hands-on_Ex03b.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 3b</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 4a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04b/Hands-on_Ex04b.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 4b</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04c/Hands-on_Ex04c.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 4c</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 5a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05b.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 5b</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05c.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 5c</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05d.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 5d</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05e.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 5e</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 8a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex08b/Hands-on_Ex08b.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 8b</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">In-class Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex02/In-class_Ex02.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex05/In-class_Ex05.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex06/In-class_Ex06.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex07/In-class_Ex07.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex08/In-class_Ex08.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 8</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex09/In-class_Ex09.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 9</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Take-Home Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Take-Home_Ex/Take-Home_Ex1/Take-Home_Ex1.html" rel="" target="">
+ <span class="dropdown-text">Take-Home Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Take-Home_Ex/Take-Home_Ex2/Take-Home_Ex2.html" rel="" target="">
+ <span class="dropdown-text">Take-Home Exercise 2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Take Home Exercise 3</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Dhreeti Shah </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 30, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1.Overview</a></li>
+  <li><a href="#load-required-libraries" id="toc-load-required-libraries" class="nav-link" data-scroll-target="#load-required-libraries">2.Load Required Libraries</a></li>
+  <li><a href="#load-dataset" id="toc-load-dataset" class="nav-link" data-scroll-target="#load-dataset">3. Load Dataset</a></li>
+  <li><a href="#checking-for-stationary-in-data" id="toc-checking-for-stationary-in-data" class="nav-link" data-scroll-target="#checking-for-stationary-in-data">4. Checking for Stationary in Data</a>
+  <ul class="collapse">
+  <li><a href="#augmented-dickey-fuller-adf-test" id="toc-augmented-dickey-fuller-adf-test" class="nav-link" data-scroll-target="#augmented-dickey-fuller-adf-test">4.1 Augmented Dickey-Fuller (ADF) Test</a></li>
+  </ul></li>
+  <li><a href="#decomposing-time-series" id="toc-decomposing-time-series" class="nav-link" data-scroll-target="#decomposing-time-series">5.Decomposing Time Series</a></li>
+  <li><a href="#acf-and-pacf-interpretation" id="toc-acf-and-pacf-interpretation" class="nav-link" data-scroll-target="#acf-and-pacf-interpretation">6. ACF and PACF interpretation</a></li>
+  <li><a href="#correlation-matrix" id="toc-correlation-matrix" class="nav-link" data-scroll-target="#correlation-matrix">7. Correlation matrix</a></li>
+  <li><a href="#regression-analysis" id="toc-regression-analysis" class="nav-link" data-scroll-target="#regression-analysis">8. Regression analysis</a>
+  <ul class="collapse">
+  <li><a href="#check-multi-colinearilty" id="toc-check-multi-colinearilty" class="nav-link" data-scroll-target="#check-multi-colinearilty">8.1 Check multi-colinearilty</a></li>
+  <li><a href="#check-regression-by-region" id="toc-check-regression-by-region" class="nav-link" data-scroll-target="#check-regression-by-region">8.2 Check regression by region</a></li>
+  </ul></li>
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest">9. Random Forest</a></li>
+  <li><a href="#time-series-forecast" id="toc-time-series-forecast" class="nav-link" data-scroll-target="#time-series-forecast">10. Time Series Forecast</a>
+  <ul class="collapse">
+  <li><a href="#arima-model-forecasting" id="toc-arima-model-forecasting" class="nav-link" data-scroll-target="#arima-model-forecasting">10.1 Arima Model Forecasting</a></li>
+  <li><a href="#exponential-smoothing-ets" id="toc-exponential-smoothing-ets" class="nav-link" data-scroll-target="#exponential-smoothing-ets">10.2 Exponential smoothing ( ETS)</a></li>
+  <li><a href="#comparing-the-two-models" id="toc-comparing-the-two-models" class="nav-link" data-scroll-target="#comparing-the-two-models">10.3 Comparing the two models</a></li>
+  </ul></li>
+  <li><a href="#longitudinal-analysis" id="toc-longitudinal-analysis" class="nav-link" data-scroll-target="#longitudinal-analysis">11. Longitudinal Analysis</a>
+  <ul class="collapse">
+  <li><a href="#casual-impact-before-and-after-covid" id="toc-casual-impact-before-and-after-covid" class="nav-link" data-scroll-target="#casual-impact-before-and-after-covid">11.1 Casual Impact before and after covid</a></li>
+  </ul></li>
+  <li><a href="#panel-regression-for-time-series-data" id="toc-panel-regression-for-time-series-data" class="nav-link" data-scroll-target="#panel-regression-for-time-series-data">12. Panel Regression for Time series data</a>
+  <ul class="collapse">
+  <li><a href="#filter-and-convert-to-panel-data-structure" id="toc-filter-and-convert-to-panel-data-structure" class="nav-link" data-scroll-target="#filter-and-convert-to-panel-data-structure">12.1 Filter and convert to panel data structure</a></li>
+  <li><a href="#fit-fixed-effects-fe-and-random-effects-re-models" id="toc-fit-fixed-effects-fe-and-random-effects-re-models" class="nav-link" data-scroll-target="#fit-fixed-effects-fe-and-random-effects-re-models">12.2 Fit Fixed Effects (FE) and Random Effects (RE) Models</a></li>
+  <li><a href="#compare-fe-vs-re-hausman-test" id="toc-compare-fe-vs-re-hausman-test" class="nav-link" data-scroll-target="#compare-fe-vs-re-hausman-test">12.3 Compare FE vs RE (Hausman Test)</a></li>
+  <li><a href="#refine-fixed-effect-model" id="toc-refine-fixed-effect-model" class="nav-link" data-scroll-target="#refine-fixed-effect-model">12.4 Refine fixed effect model</a></li>
+  <li><a href="#check-model-fit" id="toc-check-model-fit" class="nav-link" data-scroll-target="#check-model-fit">12.5 Check model fit</a></li>
+  <li><a href="#feature-importance-for-explanatory-model" id="toc-feature-importance-for-explanatory-model" class="nav-link" data-scroll-target="#feature-importance-for-explanatory-model">13. Feature importance for explanatory model</a></li>
+  <li><a href="#visualizing-coefficients" id="toc-visualizing-coefficients" class="nav-link" data-scroll-target="#visualizing-coefficients">13.1 Visualizing Coefficients :</a></li>
+  <li><a href="#comparing-models-across-regions" id="toc-comparing-models-across-regions" class="nav-link" data-scroll-target="#comparing-models-across-regions">13.2 Comparing models across regions</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">14. Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="overview" class="level1">
+<h1>1.Overview</h1>
+<p>This take home exercise 3 will look into performing analysis for the final project.For my component we will looking into CDA, Time series and building an exploratory model using Panel regression.</p>
+</section>
+<section id="load-required-libraries" class="level1">
+<h1>2.Load Required Libraries</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install and load required packages in one go</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"pacman"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Data Import &amp; Manipulation</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  readr, readxl, dplyr, tidyr, lubridate, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Exploratory Data Analysis (EDA)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  ggplot2, plotly, GGally, corrplot, skimr, </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Geospatial Visualization</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  maps, mapdata, sf, rnaturalearth, rnaturalearthdata, </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Confirmatory Data Analysis (CDA)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  car, lmtest, randomForest, factoextra, cluster, </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Time Series Analysis &amp; Forecasting</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  tsibble, feasts, fable, fabletools, forecast, tseries, urca, plm,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Additional Utilities</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  janitor, stringr, zoo</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if all packages are successfully loaded</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.4.2 (2024-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 22631)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=English_Singapore.utf8  LC_CTYPE=English_Singapore.utf8   
+[3] LC_MONETARY=English_Singapore.utf8 LC_NUMERIC=C                      
+[5] LC_TIME=English_Singapore.utf8    
+
+time zone: Etc/GMT-8
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] stringr_1.5.1           janitor_2.2.1           plm_2.6-5              
+ [4] urca_1.3-4              tseries_0.10-58         forecast_8.23.0        
+ [7] fable_0.4.1             feasts_0.4.1            fabletools_0.5.0       
+[10] tsibble_1.1.6           cluster_2.1.6           factoextra_1.0.7       
+[13] randomForest_4.7-1.2    lmtest_0.9-40           zoo_1.8-12             
+[16] car_3.1-3               carData_3.0-5           rnaturalearthdata_1.0.0
+[19] rnaturalearth_1.0.1     sf_1.0-19               mapdata_2.3.1          
+[22] maps_3.4.2.1            skimr_2.1.5             corrplot_0.95          
+[25] GGally_2.2.1            plotly_4.10.4           ggplot2_3.5.1          
+[28] lubridate_1.9.4         tidyr_1.3.1             dplyr_1.1.4            
+[31] readxl_1.4.5            readr_2.1.5            
+
+loaded via a namespace (and not attached):
+ [1] Rdpack_2.6.2         DBI_1.2.3            sandwich_3.1-1      
+ [4] rlang_1.1.5          magrittr_2.0.3       snakecase_0.11.1    
+ [7] e1071_1.7-16         compiler_4.4.2       vctrs_0.6.5         
+[10] quadprog_1.5-8       pkgconfig_2.0.3      fastmap_1.2.0       
+[13] ellipsis_0.3.2       rmarkdown_2.29       tzdb_0.4.0          
+[16] anytime_0.3.11       miscTools_0.6-28     purrr_1.0.2         
+[19] xfun_0.50            jsonlite_1.8.9       collapse_2.1.0      
+[22] terra_1.8-29         parallel_4.4.2       R6_2.5.1            
+[25] stringi_1.8.4        RColorBrewer_1.1-3   cellranger_1.1.0    
+[28] Rcpp_1.0.14          knitr_1.49           base64enc_0.1-3     
+[31] pacman_0.5.1         nnet_7.3-19          timechange_0.3.0    
+[34] tidyselect_1.2.1     rstudioapi_0.17.1    abind_1.4-8         
+[37] yaml_2.3.10          timeDate_4041.110    maxLik_1.5-2.1      
+[40] codetools_0.2-20     curl_6.1.0           lattice_0.22-6      
+[43] tibble_3.2.1         plyr_1.8.9           quantmod_0.4.26     
+[46] withr_3.0.2          evaluate_1.0.3       ggstats_0.8.0       
+[49] units_0.8-5          proxy_0.4-27         xts_0.14.1          
+[52] pillar_1.10.1        KernSmooth_2.23-24   distributional_0.5.0
+[55] generics_0.1.3       TTR_0.24.4           hms_1.1.3           
+[58] munsell_0.5.1        scales_1.3.0         class_7.3-22        
+[61] glue_1.8.0           lazyeval_0.2.2       tools_4.4.2         
+[64] data.table_1.16.4    grid_4.4.2           rbibutils_2.3       
+[67] bdsmatrix_1.3-7      colorspace_2.1-1     nlme_3.1-166        
+[70] repr_1.1.7           fracdiff_1.5-3       Formula_1.2-5       
+[73] cli_3.6.3            viridisLite_0.4.2    gtable_0.3.6        
+[76] digest_0.6.37        classInt_0.4-11      ggrepel_0.9.6       
+[79] htmlwidgets_1.6.4    htmltools_0.5.8.1    lifecycle_1.0.4     
+[82] httr_1.4.7           MASS_7.3-61         </code></pre>
+</div>
+</div>
+</section>
+<section id="load-dataset" class="level1">
+<h1>3. Load Dataset</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>world_happiness_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/world_happiness.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="checking-for-stationary-in-data" class="level1">
+<h1>4. Checking for Stationary in Data</h1>
+<p>Before forecasting, we need to determine whether the happiness score (or any other variable of interest) is stationary. A stationary time series has a constant mean and variance over time.</p>
+<section id="augmented-dickey-fuller-adf-test" class="level2">
+<h2 class="anchored" data-anchor-id="augmented-dickey-fuller-adf-test">4.1 Augmented Dickey-Fuller (ADF) Test</h2>
+<p>The ADF (Augmented Dickey-Fuller) test is used to see if a time series is stationary. Here’s how to interpret the results:</p>
+<p>The Hypothesis: The test has a null hypothesis that the data has a unit root, which means it’s not stationary. The alternative hypothesis is that the data is stationary or trend-stationary. The Output: The ADF test gives you a test statistic, a p-value, and critical values at different significance levels (like 1% or 5%).</p>
+<p>Interpreting the p-value: A low p-value (less than your chosen significance level) means you reject the null hypothesis. In this case, that means the data is likely stationary.</p>
+<p>Interpreting the test statistic: The test statistic is negative. The more negative it is, the stronger the evidence against the null hypothesis (i.e., stronger evidence for stationarity).</p>
+<p>Here P value is 5% (0.05)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>happiness_afg <span class="ot">&lt;-</span> world_happiness_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"Mexico"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>happiness_afg <span class="ot">&lt;-</span> happiness_afg <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_ladder_score =</span> <span class="fu">log</span>(ladder_score))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>adf_test <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(happiness_afg<span class="sc">$</span>ladder_score)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(adf_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Augmented Dickey-Fuller Test
+
+data:  happiness_afg$ladder_score
+Dickey-Fuller = -0.23859, Lag order = 2, p-value = 0.9862
+alternative hypothesis: stationary</code></pre>
+</div>
+</div>
+<p>From the above results, we see that the p-value is still greater than 0.05 hence the data is still not stationary hence we will perform a first difference and then run the ADF test again.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)  <span class="co"># For ADF test</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply differencing using lag() to avoid length mismatch</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>happiness_afg <span class="ot">&lt;-</span> happiness_afg <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff_ladder_score =</span> ladder_score <span class="sc">-</span> <span class="fu">lag</span>(ladder_score))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run ADF test on the differenced data</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>adf_test_diff <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(<span class="fu">na.omit</span>(happiness_afg<span class="sc">$</span>diff_ladder_score), <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(adf_test_diff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Augmented Dickey-Fuller Test
+
+data:  na.omit(happiness_afg$diff_ladder_score)
+Dickey-Fuller = NaN, Lag order = 2, p-value = NA
+alternative hypothesis: stationary</code></pre>
+</div>
+</div>
+<p>Now the data is stationary and we can proceed with other analysis</p>
+</section>
+</section>
+<section id="decomposing-time-series" class="level1">
+<h1>5.Decomposing Time Series</h1>
+<p>Time series decomposition is a fundamental technique used to break down a time series into its primary components: trend, seasonality, and residual.</p>
+<ol type="1">
+<li>Trend: The trend component of a time series represents the long-term movement or direction of the data. It captures the underlying, persistent behavior of the series, which may be characterized by a gradual increase, decrease, or stability over an extended period</li>
+<li>Residual: The residual component, also known as the error or irregular component, captures the random fluctuations or noise in the time series data that cannot be explained by the trend or seasonality. Residuals are the unexplained variability within the data, often reflecting the influence of unpredictable or external factors</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required libraries</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(feasts)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsibble)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert dataset to a tsibble (time series tibble)</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>happiness_afg <span class="ot">&lt;-</span> happiness_afg <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.integer</span>(year)) <span class="sc">%&gt;%</span> <span class="fu">as_tsibble</span>(<span class="at">index =</span> year)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># STL decomposition</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>happiness_decomp <span class="ot">&lt;-</span> happiness_afg <span class="sc">%&gt;%</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="fu">STL</span>(ladder_score <span class="sc">~</span> <span class="fu">trend</span>(<span class="at">window =</span> <span class="dv">7</span>) <span class="sc">+</span> <span class="fu">season</span>(<span class="at">window =</span> <span class="st">"periodic"</span>)))</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot decomposition</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>components <span class="ot">&lt;-</span> happiness_decomp <span class="sc">%&gt;%</span> <span class="fu">components</span>()</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(components)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From this plot we can interpretation the following : The declining trend from 2015 to around 2020 suggests that happiness levels were decreasing during this period.</p>
+<p>The upward trend after 2020 shows an improvement in happiness scores.</p>
+<p>The remainder (residuals) fluctuates, meaning there are some short-term variations that the trend component does not explain.</p>
+</section>
+<section id="acf-and-pacf-interpretation" class="level1">
+<h1>6. ACF and PACF interpretation</h1>
+<p>The Autocorrelation Function (ACF) The ACF plots the correlation of the time series with itself at different lags. This helps in identifying patterns such as seasonality, trends, and the persistence of values over time.</p>
+<p>Partial Autocorrelation Partial autocorrelation measures the correlation between observations at two time points, accounting for the values of the observations at all shorter lags. This helps isolate the direct relationship between observations at different lags, removing the influence of intermediary observations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))  <span class="co"># Set layout for side-by-side plots</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(happiness_afg<span class="sc">$</span>ladder_score, <span class="at">main =</span> <span class="st">"Autocorrelation Function (ACF)"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(happiness_afg<span class="sc">$</span>ladder_score, <span class="at">main =</span> <span class="st">"Partial Autocorrelation Function (PACF)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Based on the plots :</p>
+<p>The significant spike at lag 1 in both plots suggests that happiness in one time period is directly influenced by happiness in the immediately preceding time period. This makes intuitive sense - national happiness tends to have some momentum rather than changing dramatically between measurements. The AR(1) pattern indicates that a country’s happiness score can be reasonably modeled as depending primarily on its previous year’s score plus some random variation. The spike at lag 10 might suggest:</p>
+<p>A cyclical pattern in happiness that repeats approximately every 10 time periods Potential correlation with economic or political cycles Possible influence of longer-term social changes</p>
+<p>The pattern suggests that immediate past happiness is a strong predictor of current happiness, but the relationship weakens as you look further back in time. This aligns with how social and economic factors that influence happiness tend to evolve gradually rather than changing abruptly.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>happiness_region <span class="ot">&lt;-</span> world_happiness_data <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, region) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">ladder_score =</span> <span class="fu">mean</span>(ladder_score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to tsibble for time series analysis</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>happiness_region <span class="ot">&lt;-</span> happiness_region <span class="sc">%&gt;%</span> <span class="fu">as_tsibble</span>(<span class="at">index =</span> year, <span class="at">key =</span> region)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># STL decomposition for each region</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>happiness_decomp_region <span class="ot">&lt;-</span> happiness_region <span class="sc">%&gt;%</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="fu">STL</span>(ladder_score <span class="sc">~</span> <span class="fu">trend</span>(<span class="at">window =</span> <span class="dv">7</span>) <span class="sc">+</span> <span class="fu">season</span>(<span class="at">window =</span> <span class="st">"periodic"</span>)))</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot decomposition for regions</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>happiness_decomp_region <span class="sc">%&gt;%</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The data was grouped to see the regional trends</p>
+</section>
+<section id="correlation-matrix" class="level1">
+<h1>7. Correlation matrix</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Select numeric variables only</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>numeric_vars <span class="ot">&lt;-</span> world_happiness_data <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation matrix</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(numeric_vars, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize correlation matrix</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor_matrix, <span class="at">method =</span> <span class="st">"color"</span>, <span class="at">type =</span> <span class="st">"upper"</span>, <span class="at">tl.cex =</span> <span class="fl">0.8</span>, <span class="at">tl.col =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="regression-analysis" class="level1">
+<h1>8. Regression analysis</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(ladder_score <span class="sc">~</span> economy_score <span class="sc">+</span> social_score <span class="sc">+</span> lifeexpectancy_score <span class="sc">+</span> freedom_score <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>              generosity_score <span class="sc">+</span> corrperception_score, <span class="at">data =</span> world_happiness_data)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ladder_score ~ economy_score + social_score + lifeexpectancy_score + 
+    freedom_score + generosity_score + corrperception_score, 
+    data = world_happiness_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.00706 -0.35051  0.02764  0.38024  1.71652 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)           2.11458    0.05977  35.377  &lt; 2e-16 ***
+economy_score         0.75562    0.04616  16.368  &lt; 2e-16 ***
+social_score          0.77794    0.05720  13.601  &lt; 2e-16 ***
+lifeexpectancy_score  1.49715    0.08024  18.659  &lt; 2e-16 ***
+freedom_score         0.99759    0.09802  10.178  &lt; 2e-16 ***
+generosity_score      1.13520    0.14217   7.985 2.61e-15 ***
+corrperception_score  0.96305    0.14767   6.522 9.21e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.588 on 1654 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.7278,    Adjusted R-squared:  0.7268 
+F-statistic: 737.1 on 6 and 1654 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<section id="check-multi-colinearilty" class="level2">
+<h2 class="anchored" data-anchor-id="check-multi-colinearilty">8.1 Check multi-colinearilty</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       economy_score         social_score lifeexpectancy_score 
+            2.194354             1.844544             1.746383 
+       freedom_score     generosity_score corrperception_score 
+            1.566703             1.168935             1.363379 </code></pre>
+</div>
+</div>
+</section>
+<section id="check-regression-by-region" class="level2">
+<h2 class="anchored" data-anchor-id="check-regression-by-region">8.2 Check regression by region</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>regional_models <span class="ot">&lt;-</span> world_happiness_data <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_modify</span>(<span class="sc">~</span> <span class="fu">tidy</span>(<span class="fu">lm</span>(ladder_score <span class="sc">~</span> economy_score <span class="sc">+</span> social_score <span class="sc">+</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                          lifeexpectancy_score <span class="sc">+</span> freedom_score <span class="sc">+</span> </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                          generosity_score <span class="sc">+</span> corrperception_score, <span class="at">data =</span> .)))</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(regional_models)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 42 × 6
+# Groups:   region [6]
+   region   term                 estimate std.error statistic  p.value
+   &lt;chr&gt;    &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Africa   (Intercept)            2.99      0.144     20.7   1.02e-67
+ 2 Africa   economy_score          0.676     0.102      6.66  7.99e-11
+ 3 Africa   social_score           0.363     0.0976     3.72  2.25e- 4
+ 4 Africa   lifeexpectancy_score   0.830     0.168      4.94  1.10e- 6
+ 5 Africa   freedom_score          0.408     0.186      2.20  2.86e- 2
+ 6 Africa   generosity_score       1.63      0.394      4.13  4.38e- 5
+ 7 Africa   corrperception_score  -0.604     0.378     -1.60  1.11e- 1
+ 8 Americas (Intercept)            2.94      0.197     14.9   2.62e-36
+ 9 Americas economy_score          0.608     0.0902     6.74  1.11e-10
+10 Americas social_score           0.0395    0.130      0.305 7.61e- 1
+# ℹ 32 more rows</code></pre>
+</div>
+</div>
+<p>Correlation Matrix and Regression analysis were done to understand which factor provides more influence but after further research came to know that this is not very helpful as the data is time-series and we need to perfom Panel regression to undersand better since we need to compare in one year what factors have made the difference and not just all the factors in the data. Random forest</p>
+</section>
+</section>
+<section id="random-forest" class="level1">
+<h1>9. Random Forest</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove non-numeric columns</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>happiness_rf <span class="ot">&lt;-</span> world_happiness_data <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(country, region)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit Random Forest Model</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>rf_model <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(ladder_score <span class="sc">~</span> ., <span class="at">data =</span> happiness_rf, <span class="at">importance =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Show importance scores</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(rf_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      %IncMSE IncNodePurity
+year                 20.96554      10.19033
+economy_score        22.35021     297.77115
+social_score         19.22036     146.16029
+lifeexpectancy_score 19.41363     241.52878
+freedom_score        20.65657      80.10439
+generosity_score     16.17301      17.54034
+corrperception_score 22.32208      89.10704
+residual_score       29.54611     113.78250
+rank                 60.75791    1097.30407</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>As based on these models we see economy score as being highly important but later we will see how it changes when we conduct a Panel Regression model.</p>
+</section>
+<section id="time-series-forecast" class="level1">
+<h1>10. Time Series Forecast</h1>
+<p>In this next section we will perform a time series forecast for the next 5 years to see how happiness factors for indiivual.</p>
+<section id="arima-model-forecasting" class="level2">
+<h2 class="anchored" data-anchor-id="arima-model-forecasting">10.1 Arima Model Forecasting</h2>
+<p>We will use the Arima model to forecast since our data is stationary we can use the ARIMA(1,0,0)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit an ARIMA model</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>arima_test <span class="ot">&lt;-</span> <span class="fu">arima</span>(happiness_afg<span class="sc">$</span>ladder_score,<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>arima_forecast <span class="ot">&lt;-</span> <span class="fu">forecast</span>(arima_test, <span class="at">h =</span> <span class="dv">5</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the forecast</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(arima_forecast)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exponential-smoothing-ets" class="level2">
+<h2 class="anchored" data-anchor-id="exponential-smoothing-ets">10.2 Exponential smoothing ( ETS)</h2>
+<p>Now we will look into another time forecasting model which is the ETS (Error,Trend,Seasonal.Time series forecasting method that gives exponentially decreasing weights to past observations, with more recent data points having greater influence on forecasts.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit an ETS model</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ets_model <span class="ot">&lt;-</span> <span class="fu">ets</span>(happiness_afg<span class="sc">$</span>ladder_score)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Forecast the next 5 years</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>ets_forecast <span class="ot">&lt;-</span> <span class="fu">forecast</span>(ets_model, <span class="at">h =</span> <span class="dv">5</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the forecast</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(ets_forecast)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The ARIMA model forecasts a slight downward trend, while the ETS model predicts stability The ETS model shows more symmetrical confidence intervals that widen more dramatically The ARIMA model seems to be giving more weight to the recent upward trend in the data</p>
+<p>Without additional metrics like AIC, BIC, or forecast error measurements, it’s difficult to determine which model performs better. The choice between them would depend on whether you believe the country’s happiness score is more likely to continue its recent momentum (favoring ARIMA) or revert to a stable level (favoring ETS).</p>
+<p>Hence lets deep dive into further additional metrics to understand what is better</p>
+</section>
+<section id="comparing-the-two-models" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-the-two-models">10.3 Comparing the two models</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add accuracy metrics</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate accuracy metrics for both models</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>arima_accuracy <span class="ot">&lt;-</span> <span class="fu">accuracy</span>(arima_forecast)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>ets_accuracy <span class="ot">&lt;-</span> <span class="fu">accuracy</span>(ets_forecast)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Print accuracy metrics</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"ARIMA Accuracy Metrics:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ARIMA Accuracy Metrics:"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(arima_accuracy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      ME      RMSE       MAE        MPE     MAPE      MASE
+Training set -0.04187671 0.2203664 0.2012032 -0.7299727 3.039551 0.9472843
+                  ACF1
+Training set 0.2294729</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"ETS Accuracy Metrics:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ETS Accuracy Metrics:"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ets_accuracy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      ME      RMSE       MAE        MPE     MAPE      MASE
+Training set -0.01818682 0.2244143 0.1938272 -0.3137885 2.940931 0.9125575
+                  ACF1
+Training set 0.4497664</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate information criteria</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>arima_aic <span class="ot">&lt;-</span> <span class="fu">AIC</span>(arima_test)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>arima_bic <span class="ot">&lt;-</span> <span class="fu">BIC</span>(arima_test)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>ets_aic <span class="ot">&lt;-</span> <span class="fu">AIC</span>(ets_model)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>ets_bic <span class="ot">&lt;-</span> <span class="fu">BIC</span>(ets_model)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print information criteria</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"ARIMA AIC:"</span>, arima_aic, <span class="st">"  ARIMA BIC:"</span>, arima_bic, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ARIMA AIC: 4.80433   ARIMA BIC: 5.998015 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"ETS AIC:"</span>, ets_aic, <span class="st">"  ETS BIC:"</span>, ets_bic, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ETS AIC: -0.6578825   ETS BIC: 0.5358033 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residual analysis</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(arima_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ARIMA(1,0,0) with non-zero mean
+Q* = 3.2172, df = 3, p-value = 0.3593
+
+Model df: 1.   Total lags used: 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(ets_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ETS(M,N,N)
+Q* = 4.8705, df = 3, p-value = 0.1815
+
+Model df: 0.   Total lags used: 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-validation (if you have enough data)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Using k-fold cross-validation for time series</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">5</span>  <span class="co"># Number of folds</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(happiness_afg<span class="sc">$</span>ladder_score) <span class="sc">&gt;</span> <span class="dv">10</span>) {  <span class="co"># Only if you have enough data</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tseries)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Function to perform k-fold cross-validation</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  cv_rmse <span class="ot">&lt;-</span> <span class="cf">function</span>(model_type, ts_data, k) {</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">length</span>(ts_data)</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    fold_size <span class="ot">&lt;-</span> <span class="fu">floor</span>(n<span class="sc">/</span>k)</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    errors <span class="ot">&lt;-</span> <span class="fu">numeric</span>(k<span class="dv">-1</span>)</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(k<span class="dv">-1</span>)) {</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>      train_end <span class="ot">&lt;-</span> n <span class="sc">-</span> (k<span class="sc">-</span>i)<span class="sc">*</span>fold_size</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>      train_data <span class="ot">&lt;-</span> ts_data[<span class="dv">1</span><span class="sc">:</span>train_end]</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>      test_data <span class="ot">&lt;-</span> ts_data[(train_end<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(train_end<span class="sc">+</span>fold_size)]</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(model_type <span class="sc">==</span> <span class="st">"arima"</span>) {</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>        model <span class="ot">&lt;-</span> <span class="fu">arima</span>(train_data, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>        pred <span class="ot">&lt;-</span> <span class="fu">forecast</span>(model, <span class="at">h =</span> fold_size)</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>        model <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_data)</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>        pred <span class="ot">&lt;-</span> <span class="fu">forecast</span>(model, <span class="at">h =</span> fold_size)</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>      errors[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((test_data <span class="sc">-</span> pred<span class="sc">$</span>mean)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">mean</span>(errors))</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>  arima_cv_rmse <span class="ot">&lt;-</span> <span class="fu">cv_rmse</span>(<span class="st">"arima"</span>, happiness_afg<span class="sc">$</span>ladder_score, k)</span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>  ets_cv_rmse <span class="ot">&lt;-</span> <span class="fu">cv_rmse</span>(<span class="st">"ets"</span>, happiness_afg<span class="sc">$</span>ladder_score, k)</span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"ARIMA CV RMSE:"</span>, arima_cv_rmse, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"ETS CV RMSE:"</span>, ets_cv_rmse, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ARIMA CV RMSE: 0.3231794 
+ETS CV RMSE: 0.295597 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot both forecasts together for comparison</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arima_forecast, <span class="at">main=</span><span class="st">"ARIMA vs ETS Forecast Comparison"</span>, </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Time"</span>, <span class="at">ylab=</span><span class="st">"Happiness Score"</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(ets_forecast<span class="sc">$</span>mean, <span class="at">col=</span><span class="st">"red"</span>)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"ARIMA"</span>, <span class="st">"ETS"</span>), </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>), <span class="at">lty=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-15-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Based on the results ETS has a better choice for forecasting The ETS(M,N,N) model appears to be the better choice for forecasting happiness scores based on:</p>
+<p>Better information criteria (substantially lower AIC and BIC) slightly better forecasting accuracy in cross-validation Comparable or better error metrics on the training data</p>
+</section>
+</section>
+<section id="longitudinal-analysis" class="level1">
+<h1>11. Longitudinal Analysis</h1>
+<p>(Event-based Changes) Interrupted Time Series Analysis (ITS) is a method used to evaluate the impact of an event or policy change on a time series. For example, a policy shift like a new government initiative or an economic crisis could alter happiness scores.</p>
+<p>CausalImpact package in R helps with this analysis. It uses Bayesian structural time series models to detect causal effects in time series data.</p>
+<section id="casual-impact-before-and-after-covid" class="level2">
+<h2 class="anchored" data-anchor-id="casual-impact-before-and-after-covid">11.1 Casual Impact before and after covid</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CausalImpact)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only relevant columns and ensure data is ordered</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>happiness_data <span class="ot">&lt;-</span> happiness_afg <span class="sc">%&gt;%</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, ladder_score) <span class="sc">%&gt;%</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to a properly structured time series (zoo object)</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>happiness_ts <span class="ot">&lt;-</span> <span class="fu">zoo</span>(happiness_data<span class="sc">$</span>ladder_score, <span class="at">order.by =</span> happiness_data<span class="sc">$</span>year)</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Define pre- and post-event periods</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>pre_period <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(happiness_data<span class="sc">$</span>year), <span class="dv">2019</span>)   <span class="co"># Adjust event year if needed</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>post_period <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="fu">max</span>(happiness_data<span class="sc">$</span>year))  <span class="co"># Ensure this is correct</span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Run CausalImpact analysis</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>impact <span class="ot">&lt;-</span> <span class="fu">CausalImpact</span>(happiness_ts, <span class="at">pre.period =</span> pre_period, <span class="at">post.period =</span> post_period)</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary and plot results</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(impact)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Posterior inference {CausalImpact}
+
+                         Average          Cumulative    
+Actual                   6.5              32.4          
+Prediction (s.d.)        6.7 (0.15)       33.7 (0.76)   
+95% CI                   [6.5, 7.1]       [32.4, 35.4]  
+                                                        
+Absolute effect (s.d.)   -0.26 (0.15)     -1.31 (0.76)  
+95% CI                   [-0.59, 0.012]   [-2.93, 0.061]
+                                                        
+Relative effect (s.d.)   -4% (2.2%)       -4% (2.2%)    
+95% CI                   [-8.3%, 0.19%]   [-8.3%, 0.19%]
+
+Posterior tail-area probability p:   0.03219
+Posterior prob. of a causal effect:  96.781%
+
+For more details, type: summary(impact, "report")</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(impact, <span class="st">"report"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis report {CausalImpact}
+
+
+During the post-intervention period, the response variable had an average value of approx. 6.49. In the absence of an intervention, we would have expected an average response of 6.75. The 95% interval of this counterfactual prediction is [6.47, 7.07]. Subtracting this prediction from the observed response yields an estimate of the causal effect the intervention had on the response variable. This effect is -0.26 with a 95% interval of [-0.59, 0.012]. For a discussion of the significance of this effect, see below.
+
+Summing up the individual data points during the post-intervention period (which can only sometimes be meaningfully interpreted), the response variable had an overall value of 32.43. Had the intervention not taken place, we would have expected a sum of 33.74. The 95% interval of this prediction is [32.37, 35.36].
+
+The above results are given in terms of absolute numbers. In relative terms, the response variable showed a decrease of -4%. The 95% interval of this percentage is [-8%, +0%].
+
+This means that, although it may look as though the intervention has exerted a negative effect on the response variable when considering the intervention period as a whole, this effect is not statistically significant, and so cannot be meaningfully interpreted. The apparent effect could be the result of random fluctuations that are unrelated to the intervention. This is often the case when the intervention period is very long and includes much of the time when the effect has already worn off. It can also be the case when the intervention period is too short to distinguish the signal from the noise. Finally, failing to find a significant effect can happen when there are not enough control variables or when these variables do not correlate well with the response variable during the learning period.
+
+The probability of obtaining this effect by chance is very small (Bayesian one-sided tail-area probability p = 0.032). This means the causal effect can be considered statistically significant. </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(impact)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The analysis suggests COVID-19 had a substantial negative causal effect on happiness levels, with the impact deepening over time rather than showing immediate recovery. The model suggests that without the pandemic, happiness levels would have remained relatively stable around 6.7-6.8, but instead experienced a significant decline.</p>
+<p>The aim of this analysis would be to use in shiny dashboard to allow users to compare covid affects in different countries.</p>
+</section>
+</section>
+<section id="panel-regression-for-time-series-data" class="level1">
+<h1>12. Panel Regression for Time series data</h1>
+<section id="filter-and-convert-to-panel-data-structure" class="level2">
+<h2 class="anchored" data-anchor-id="filter-and-convert-to-panel-data-structure">12.1 Filter and convert to panel data structure</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load dataset</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> world_happiness_data <span class="sc">%&gt;%</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, year, ladder_score, economy_score, social_score, </span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>         lifeexpectancy_score, freedom_score, generosity_score, corrperception_score) <span class="sc">%&gt;%</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to panel data structure</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">pdata.frame</span>(df, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>))  <span class="co"># Define panel index</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="fit-fixed-effects-fe-and-random-effects-re-models" class="level2">
+<h2 class="anchored" data-anchor-id="fit-fixed-effects-fe-and-random-effects-re-models">12.2 Fit Fixed Effects (FE) and Random Effects (RE) Models</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fixed Effects Model (FE)</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>fe_model <span class="ot">&lt;-</span> <span class="fu">plm</span>(ladder_score <span class="sc">~</span> economy_score <span class="sc">+</span> social_score <span class="sc">+</span> lifeexpectancy_score <span class="sc">+</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>                  freedom_score <span class="sc">+</span> generosity_score <span class="sc">+</span> corrperception_score, </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> df, <span class="at">model =</span> <span class="st">"within"</span>)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Random Effects Model (RE)</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>re_model <span class="ot">&lt;-</span> <span class="fu">plm</span>(ladder_score <span class="sc">~</span> economy_score <span class="sc">+</span> social_score <span class="sc">+</span> lifeexpectancy_score <span class="sc">+</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>                  freedom_score <span class="sc">+</span> generosity_score <span class="sc">+</span> corrperception_score, </span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> df, <span class="at">model =</span> <span class="st">"random"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="compare-fe-vs-re-hausman-test" class="level2">
+<h2 class="anchored" data-anchor-id="compare-fe-vs-re-hausman-test">12.3 Compare FE vs RE (Hausman Test)</h2>
+<p>To decide which one to use?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>hausman_test <span class="ot">&lt;-</span> <span class="fu">phtest</span>(fe_model, re_model)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(hausman_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Hausman Test
+
+data:  ladder_score ~ economy_score + social_score + lifeexpectancy_score +  ...
+chisq = 241.97, df = 6, p-value &lt; 2.2e-16
+alternative hypothesis: one model is inconsistent</code></pre>
+</div>
+</div>
+</section>
+<section id="refine-fixed-effect-model" class="level2">
+<h2 class="anchored" data-anchor-id="refine-fixed-effect-model">12.4 Refine fixed effect model</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>fe_model <span class="ot">&lt;-</span> <span class="fu">plm</span>(ladder_score <span class="sc">~</span> economy_score <span class="sc">+</span> social_score <span class="sc">+</span> lifeexpectancy_score <span class="sc">+</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>                  freedom_score <span class="sc">+</span> generosity_score <span class="sc">+</span> corrperception_score, </span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> df, <span class="at">model =</span> <span class="st">"within"</span>)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Oneway (individual) effect Within Model
+
+Call:
+plm(formula = ladder_score ~ economy_score + social_score + lifeexpectancy_score + 
+    freedom_score + generosity_score + corrperception_score, 
+    data = df, model = "within")
+
+Unbalanced Panel: n = 172, T = 1-11, N = 1661
+
+Residuals:
+      Min.    1st Qu.     Median    3rd Qu.       Max. 
+-1.5378219 -0.1535541  0.0049151  0.1622974  1.3152798 
+
+Coefficients:
+                     Estimate Std. Error t-value  Pr(&gt;|t|)    
+economy_score        0.120782   0.051580  2.3416   0.01933 *  
+social_score         0.179850   0.042483  4.2334 2.443e-05 ***
+lifeexpectancy_score 0.208487   0.084177  2.4768   0.01337 *  
+freedom_score        0.697978   0.087304  7.9948 2.589e-15 ***
+generosity_score     1.018427   0.161291  6.3142 3.579e-10 ***
+corrperception_score 1.000161   0.216147  4.6272 4.029e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    156.82
+Residual Sum of Squares: 136.84
+R-Squared:      0.12736
+Adj. R-Squared: 0.023208
+F-statistic: 36.0733 on 6 and 1483 DF, p-value: &lt; 2.22e-16</code></pre>
+</div>
+</div>
+</section>
+<section id="check-model-fit" class="level2">
+<h2 class="anchored" data-anchor-id="check-model-fit">12.5 Check model fit</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(fe_model)  <span class="co"># R-squared for model fit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># R2 for Panel Data Regression
+       R2: 0.127
+  adj. R2: 0.023</code></pre>
+</div>
+</div>
+<ol type="1">
+<li>Model Fit (R² and Adjusted R²) R² = 0.127: This means your model explains 12.7% of the variance in happiness scores.</li>
+</ol>
+<p>Adj. R² = 0.023: Since it’s low, the model may not generalize well, and some variables may not contribute much.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Predictor</th>
+<th>Estimate</th>
+<th>p-value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 37%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Economy Score</strong></td>
+<td>0.1208</td>
+<td>0.0193 *</td>
+<td>Higher GDP increases happiness slightly.</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 37%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Social Support</strong></td>
+<td>0.1799</td>
+<td>2.4e-05 ***</td>
+<td>Strong social connections improve happiness.</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 39%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Life Expectancy</strong></td>
+<td>0.2085</td>
+<td>0.0134 *</td>
+<td>Longer life expectancy correlates with happiness.</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 45%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Freedom</strong></td>
+<td>0.6980</td>
+<td>2.6e-15 ***</td>
+<td><strong>Strongest effect:</strong> More freedom = significantly higher happiness.</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 37%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Generosity</strong></td>
+<td>1.0184</td>
+<td>3.6e-10 ***</td>
+<td>More generous countries are much happier.</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 40%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Corruption Perception</strong></td>
+<td>1.0002</td>
+<td>4.0e-06 ***</td>
+<td>Lower corruption perception <strong>strongly</strong> correlates with happiness.</td>
+</tr>
+</tbody>
+</table>
+<p>🔹 Freedom, Generosity, and Corruption Perception have the strongest effects on happiness. 🔹 Economic growth matters but has a smaller impact than social and governance factors.</p>
+</section>
+<section id="feature-importance-for-explanatory-model" class="level2">
+<h2 class="anchored" data-anchor-id="feature-importance-for-explanatory-model">13. Feature importance for explanatory model</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)  <span class="co"># Ensure tibble is loaded</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>coef_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">coef</span>(<span class="fu">summary</span>(fe_model))) <span class="sc">%&gt;%</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"Feature"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Coefficient =</span> Estimate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualizing-coefficients" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-coefficients">13.1 Visualizing Coefficients :</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(coef_df, <span class="fu">aes</span>(<span class="at">x =</span> Coefficient, <span class="at">y =</span> <span class="fu">reorder</span>(Feature, Coefficient))) <span class="sc">+</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Feature Importance (Fixed Effects Model)"</span>, <span class="at">x =</span> <span class="st">"Coefficient"</span>, <span class="at">y =</span> <span class="st">"Feature"</span>) <span class="sc">+</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-Home_Ex03_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="comparing-models-across-regions" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-models-across-regions">13.2 Comparing models across regions</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>fe_model_asia <span class="ot">&lt;-</span> <span class="fu">plm</span>(ladder_score <span class="sc">~</span> economy_score <span class="sc">+</span> social_score <span class="sc">+</span> lifeexpectancy_score <span class="sc">+</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>                        freedom_score <span class="sc">+</span> generosity_score <span class="sc">+</span> corrperception_score, </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> world_happiness_data[world_happiness_data<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"Asia"</span>,], <span class="at">model =</span> <span class="st">"within"</span>)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>fe_model_europe <span class="ot">&lt;-</span> <span class="fu">plm</span>(ladder_score <span class="sc">~</span> economy_score <span class="sc">+</span> social_score <span class="sc">+</span> lifeexpectancy_score <span class="sc">+</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>                          freedom_score <span class="sc">+</span> generosity_score <span class="sc">+</span> corrperception_score, </span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> world_happiness_data[world_happiness_data<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"Europe"</span>,], <span class="at">model =</span> <span class="st">"within"</span>)</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_model_asia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Oneway (individual) effect Within Model
+
+Call:
+plm(formula = ladder_score ~ economy_score + social_score + lifeexpectancy_score + 
+    freedom_score + generosity_score + corrperception_score, 
+    data = world_happiness_data[world_happiness_data$region == 
+        "Asia", ], model = "within")
+
+Unbalanced Panel: n = 11, T = 38-47, N = 481
+
+Residuals:
+     Min.   1st Qu.    Median   3rd Qu.      Max. 
+-1.419621 -0.230295 -0.012684  0.264592  1.479704 
+
+Coefficients:
+                     Estimate Std. Error t-value Pr(&gt;|t|)    
+economy_score        1.236156   0.097346 12.6986   &lt;2e-16 ***
+social_score         1.409796   0.100072 14.0878   &lt;2e-16 ***
+lifeexpectancy_score 0.127248   0.201444  0.6317   0.5279    
+freedom_score        1.389514   0.156108  8.9010   &lt;2e-16 ***
+generosity_score     0.014660   0.189350  0.0774   0.9383    
+corrperception_score 0.064666   0.242597  0.2666   0.7899    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    433.26
+Residual Sum of Squares: 102.56
+R-Squared:      0.76328
+Adj. R-Squared: 0.75512
+F-statistic: 249.359 on 6 and 464 DF, p-value: &lt; 2.22e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_model_europe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Oneway (individual) effect Within Model
+
+Call:
+plm(formula = ladder_score ~ economy_score + social_score + lifeexpectancy_score + 
+    freedom_score + generosity_score + corrperception_score, 
+    data = world_happiness_data[world_happiness_data$region == 
+        "Europe", ], model = "within")
+
+Unbalanced Panel: n = 11, T = 39-40, N = 437
+
+Residuals:
+     Min.   1st Qu.    Median   3rd Qu.      Max. 
+-1.110267 -0.228354  0.032152  0.221191  1.119916 
+
+Coefficients:
+                     Estimate Std. Error t-value  Pr(&gt;|t|)    
+economy_score         1.03223    0.19041  5.4210 1.002e-07 ***
+social_score          0.99773    0.16078  6.2055 1.309e-09 ***
+lifeexpectancy_score  0.89706    0.27951  3.2094  0.001432 ** 
+freedom_score         1.42743    0.19049  7.4933 4.009e-13 ***
+generosity_score      0.92950    0.22261  4.1754 3.618e-05 ***
+corrperception_score  1.36855    0.18378  7.4469 5.475e-13 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    293.91
+Residual Sum of Squares: 55.091
+R-Squared:      0.81256
+Adj. R-Squared: 0.80542
+F-statistic: 303.449 on 6 and 420 DF, p-value: &lt; 2.22e-16</code></pre>
+</div>
+</div>
+<p>Based on this we can :</p>
+<p>Europe’s model explains happiness better (higher R² &amp; adjusted R²), meaning factors like economy, social support, life expectancy, freedom, generosity, and corruption perception explain more of the variance in happiness for European countries than for Asian countries.</p>
+<p>Asia has greater overall variance in happiness (higher TSS), indicating that happiness is more heterogeneous across Asian countries compared to Europe.</p>
+<p>Asia’s residual variance (RSS = 102.56) is higher than Europe’s (RSS = 55.091), suggesting that there are unobserved factors influencing happiness in Asia that are not captured by this model.</p>
+<p>Policy Implications: Since the same model structure fits better for Europe, it might mean that happiness in Asia is influenced by additional cultural, societal, or economic factors not included in the model.</p>
+<p>This means this can be useful for our dashboard to help understand which factors are more important in which region.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>14. Conclusion</h1>
+<p>These analysis will help define the flow for dashboard</p>
+<p>📌 Panel Model Validation ✔ Hausman test (Fixed vs.&nbsp;Random effects) ✔ R-squared values for different variations ✔ Serial correlation &amp; heteroskedasticity tests</p>
+<p>📌 Visualizations &amp; Insights ✔ Coefficient plot ✔ Top features and their impact ✔ Predicted vs.&nbsp;actual scores</p>
+<p>📌 Custom Panel Analysis ✔ Happiness trends for different regions ✔ Forecast future happiness based on past trends</p>
+<p>📌 Interactive User Tools ✔ Compare happiness trends by country ✔ Simulate happiness scores with different factors</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

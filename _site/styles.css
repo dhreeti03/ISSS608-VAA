@@ -4,3 +4,62 @@
     max-height: 300px;  /* Adjust height as needed */
     overflow-y: auto;   /* Enable vertical scrolling */
 }
+/* Global Styles */
+body {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+/* Header Styling */
+h1 {
+  color: #2c3e50;
+  font-size: 28px;
+  font-weight: bold;
+  border-bottom: 2px solid #2c3e50;
+  padding-bottom: 5px;
+}
+
+h2 {
+  color: #007acc;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+h3 {
+  color: #00897b;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Code Blocks */
+pre {
+  background-color: #272822;
+  color: #f8f8f2;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #007acc;
+  color: white;
+  padding: 10px;
+}
+
+td {
+  padding: 8px;
+}
