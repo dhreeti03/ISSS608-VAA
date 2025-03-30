@@ -1,9 +1,46 @@
 ---
-title: "About"
+title: "About Me"
+author: "Dhreeti Shah"
+date: "r Sys.Date()"
+title-block-banner: true
+format:
+  html:
+    theme: flatly
+    toc: false
+    css: "style.css"
+execute:
+  echo: false
 ---
 
-About this site
+# 👋 Welcome to My Visual Analytics Hub!
 
-```{r}
-1 + 1
-```
+Hi there! I\'m **Dhreeti Shah**, and this is my **Visual Analytics Portal**, where I explore the world of **data storytelling, insights, and interactive visualizations**.
+
+This portal contains:\
+✅ **In-Class Exercises** 🏫 -- Hands-on coding and concept explorations.\
+✅ **Take-Home Exercises** 🏡 -- Deep-dive projects and analysis.\
+✅ **Hands-On Projects** 🎨 -- Real-world applications of visual analytics.
+
+## 🔍 **About Me**
+
+I\'m passionate about **data, storytelling, and making complex insights simple**. Whether it\'s crafting interactive dashboards, predicting trends, or uncovering hidden patterns, I love **exploring data through R**!
+
+When I\'m not analyzing datasets, you\'ll find me:\
+📚 **Learning new AI & analytics techniques**\
+🎨 **Experimenting with creative data visualizations**\
+☕ **Enjoying a good cup of coffee while coding**
+
+## 📌 **What You\'ll Find Here**
+
+🔹 **Time Series Analysis & Forecasting** ⏳\
+🔹 **Causal Impact Analysis** 🔎\
+🔹 **Panel Regression & Data Modeling** 📈\
+🔹 **Exploratory Data Analysis (EDA) & Visual Storytelling** 🎨
+
+Each section in this portal is designed to **enhance my skills in R** while showcasing practical applications of **Visual Analytics**.
+
+### 🚀 **Let\'s Dive Into the Data!**
+
+> *"Data is like a good story---it's all about how you visualize and tell it!"*
+
+Feel free to explore my work and see how I turn **numbers into narratives**! 😊
